@@ -19,14 +19,14 @@ docutils==0.19
 entrypoints==0.4
 executing==1.2.0
 filelock==3.9.0
-flake8==6.0.0
+flake8
 fonttools==4.38.0
 huggingface-hub==0.11.1
 idna==3.4
 imagesize==1.4.1
 importlib-metadata==6.0.0
-ipykernel==6.19.4
-ipython==8.8.0
+ipykernel
+ipython
 jedi==0.18.2
 Jinja2==3.1.2
 jmespath==0.10.0
@@ -73,7 +73,8 @@ sphinxcontrib-qthelp==1.0.3
 sphinxcontrib-serializinghtml==1.1.5
 stack-data==0.6.2
 timm==0.6.12
-torch==1.13.1
+hydra
+torch
 torchvision
 tornado
 tqdm
