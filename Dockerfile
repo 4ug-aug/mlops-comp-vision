@@ -10,13 +10,15 @@ RUN apt update && \
 COPY requirements.txt requirements.txt
 COPY setup.py setup.py
 COPY src/ src/
-COPY data/ data/
 COPY models/ models/
 COPY reports/ reports/
+
+RUN mkdir /data
 
 # Install dependencies
 WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
+RUN python src/data/make_dataset.py
 
 # Entrypoint
 ENTRYPOINT ["python", "-u", "src/models/train_model.py"]
