@@ -109,7 +109,7 @@ def train(lr, epochs, dev):
     plt.savefig(f"reports/figures/training_loss_{new_path}.png")
 
     # Generate unique name for model
-    new_path = count_files("src/models/trained_models")
+    new_path = count_files("models/trained_models")
     new_path = f"models/trained_models/model_checkpoint_{new_path}.pth"
 
     print("Saving model as model_checkpoint.pth")
