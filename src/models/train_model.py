@@ -19,11 +19,16 @@ import numpy as np
 from torch import nn, optim
 from tqdm import tqdm
 import hydra
+from hydra.utils import get_original_cwd
 
 from utils import count_files
 
-@hydra.main(config_name="config.yaml")
+@hydra.main(config_path='conf/',config_name="config")
 def main(cfg):
+    os.chdir(get_original_cwd())
+    print("hallo")
+    print(os.getcwd())
+    print("hallo")
     """ Train a model and save loss plot and model checkpoint
 
     Args:
