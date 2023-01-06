@@ -8,6 +8,7 @@ import torch
 import numpy as np
 import timm
 
+
 @click.command()
 @click.argument('input_filepath', type=click.Path(exists=True))
 @click.argument('output_filepath', type=click.Path())
@@ -37,4 +38,11 @@ if __name__ == '__main__':
     # load up the .env entries as environment variables
     load_dotenv(find_dotenv())
 
-    main()
+    try:
+        main()
+    except Exception as e:
+        print("Error: ", e)
+        print("Using unsecure connection")
+        import ssl 
+        ssl._create_default_https_context = ssl._create_unverified_context
+        main()
