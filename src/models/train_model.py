@@ -55,10 +55,7 @@ def train(lr, epochs, dev):
         print("Dev dataset loaded")
         print("Dev dataset size: {}".format(len(train_dataset)))
 
-    train_loader  = create_loader(train_dataset, input_size=(3, 32, 32), batch_size=8, use_prefetcher=False, 
-                              is_training=True, no_aug=True)
-    
-
+    trainloader = torch.utils.data.DataLoader(train_dataset, batch_size=64, shuffle=True)
 
     model = MyAwesomeModel(classes=10).model()
 
@@ -75,18 +72,16 @@ def train(lr, epochs, dev):
 
     training_loss = []
 
-    tk0 = tqdm(enumerate(train_loader), total=len(train_loader))
-
     for e in range(epochs):
         print(f"Epoch {e+1}/{epochs}")
         running_loss = 0
-        for i, (inputs, targets) in tk0:
-            preds = model(inputs)
-            loss = criterion(preds, targets)
+        for images, labels in tqdm(trainloader):
+            
+            preds = model(images)
+            loss = criterion(preds, labels)
             loss.backward()
             optimizer.step()
             optimizer.zero_grad()
-            tk0.set_postfix(loss=loss.item())
             
             running_loss += loss.item()
         else:

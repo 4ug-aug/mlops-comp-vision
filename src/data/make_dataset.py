@@ -19,8 +19,11 @@ def main(input_filepath, output_filepath):
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
 
-    train_dataset = timm.data.create_dataset('torch/cifar10','cifar10',download=True,split='train')
-    test_dataset = timm.data.create_dataset('torch/cifar10','cifar10',download=True,split='test')
+    transform = transforms.Compose([transforms.ToTensor(),
+                                transforms.Normalize((0.5,), (0.5,))])
+
+    train_dataset = datasets.CIFAR10('torch/cifar10', download=True, train=True, transform=transform)
+    test_dataset = datasets.CIFAR10('torch/cifar10', download=True, train=False, transform=transform)
 
     # Save the data
     torch.save(train_dataset, output_filepath + '/train.pt')
