@@ -55,7 +55,7 @@ if __name__ == '__main__':
         print("Error: ", e)
         input_ = "y"
         input_ = input("Using unsecure connection? [y] ")
-        if input_ == 'y':
+        if input_ == 'y' or input_ == '':
             import ssl 
             ssl._create_default_https_context = ssl._create_unverified_context
             main()
