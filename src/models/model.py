@@ -12,7 +12,7 @@ class MyAwesomeModel():
 
     def model(self):
         # https://huggingface.co/microsoft/resnet-50
-        model_name = "resnet-50"
+        model_name = "resnet50"
 
         timm_model = timm.create_model(model_name, pretrained=False, num_classes=self.classes)
 
