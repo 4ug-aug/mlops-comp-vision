@@ -59,7 +59,7 @@ def train(lr, epochs, dev):
 
     model = MyAwesomeModel(classes=10).model()
 
-    criterion = nn.NLLLoss()
+    criterion = nn.CrossEntropyLoss()
 
     # Create optimiser
     args = SimpleNamespace()
@@ -85,7 +85,7 @@ def train(lr, epochs, dev):
             
             running_loss += loss.item()
         else:
-            training_loss.append(running_loss/len(trainloader))
+            training_loss.append(running_loss/trainloader.batch_size)
             print(f"Training loss: {training_loss[-1]}")
 
     # plot the training loss
@@ -99,7 +99,7 @@ def train(lr, epochs, dev):
 
     # Generate unique name for model
     new_path = count_files("src/models/trained_models")
-    new_path = f"src/models/trained_models/model_checkpoint_{new_path}.pth"
+    new_path = f"models/trained_models/model_checkpoint_{new_path}.pth"
 
     print("Saving model as model_checkpoint.pth")
     print("Path: {}".format(new_path))
