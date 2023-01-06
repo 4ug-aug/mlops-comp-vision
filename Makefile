@@ -44,7 +44,7 @@ train:
 
 ## Get the latest file relative path in the trained_models folder and use it to predict
 predict:
-	$(PYTHON_INTERPRETER) src/models/predict_model.py --model_path $(shell ls -t src/models/trained_models/* | head -1) --data_path data/processed/test.pt
+	$(PYTHON_INTERPRETER) src/models/predict_model.py --model_path $(shell ls -t models/trained_models/* | head -1) --data_path data/processed/test.pt
 
 ## Upload Data to S3
 sync_data_to_s3:
