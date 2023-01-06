@@ -26,6 +26,17 @@ def main(input_filepath, output_filepath):
     torch.save(train_dataset, output_filepath + '/train.pt')
     torch.save(test_dataset, output_filepath + '/test.pt')
 
+    # make dev set
+    train_indices = torch.randperm(len(train_dataset))[:5000]
+    train_dataset_dev = torch.utils.data.Subset(train_dataset, train_indices)
+
+    test_indices = torch.randperm(len(test_dataset))[:1000]
+    test_dataset_dev = torch.utils.data.Subset(test_dataset, test_indices)
+
+    torch.save(train_dataset_dev, output_filepath + '/train_dev.pt')
+    torch.save(test_dataset_dev, output_filepath + '/test_dev.pt')
+
+
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
