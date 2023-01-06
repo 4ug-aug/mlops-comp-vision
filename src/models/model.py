@@ -11,7 +11,8 @@ class MyAwesomeModel():
         pass
 
     def model(self):
-        model_name = "xception"
+        # https://huggingface.co/microsoft/resnet-50
+        model_name = "resnet-50"
 
         timm_model = timm.create_model(model_name, pretrained=False, num_classes=self.classes)
 
