@@ -8,7 +8,7 @@ def count_files(path):
             count += 1
     return count
 
-def get_latest_model(model_dir="src/models/trained_models"):
+def get_latest_model(model_dir="models/trained_models"):
     """ Return path to latest model in directory, based on _number in filename"""
     print("Getting latest model")
     latest_model = None
