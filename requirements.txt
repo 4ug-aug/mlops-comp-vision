@@ -71,8 +71,6 @@ sphinxcontrib-htmlhelp==2.0.0
 sphinxcontrib-jsmath==1.0.1
 sphinxcontrib-qthelp==1.0.3
 sphinxcontrib-serializinghtml==1.1.5
-# Editable install with no version control (src==0.1.0)
--e /Users/augusttollerup/Documents/SEM6/MLOps/mnist
 stack-data==0.6.2
 timm==0.6.12
 torch==1.13.1
