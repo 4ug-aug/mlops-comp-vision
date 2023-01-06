@@ -54,8 +54,8 @@ if __name__ == '__main__':
     except Exception as e:
         print("Error: ", e)
         input_ = "y"
-        input_ = input("Using unsecure connection? [y]")
-        if input == 'y':
+        input_ = input("Using unsecure connection? [y] ")
+        if input_ == 'y':
             import ssl 
             ssl._create_default_https_context = ssl._create_unverified_context
             main()
