@@ -5,12 +5,20 @@ import os
 
 import torch
 import click
+from torchvision import transforms
+
+# Timm computer vision hugging face library
+import timm
+from timm.optim.optim_factory import create_optimizer
+from timm.data import create_dataset, create_loader
+from types import SimpleNamespace
 
 from model import MyAwesomeModel
 
 import matplotlib.pyplot as plt
 import numpy as np
 from torch import nn, optim
+from tqdm import tqdm
 
 from utils import count_files
 
@@ -21,42 +29,64 @@ def cli():
 
 @click.command()
 @click.option("--lr", default=1e-3, help='learning rate to use for training')
-@click.option("--epochs", default=7, help='number of epochs to train for')
+@click.option("--epochs", default=1, help='number of epochs to train for')
+@click.option("--dev", default=True, help='use dev set for training')
 
 # Make help message for the train command
 @click.help_option("--help", "-h")
 
-def train(lr, epochs):
+def train(lr, epochs, dev):
     logger = logging.getLogger(__name__)
 
     logger.info('training model')
     logger.info(f"Learning Rate: {lr}")
     logger.info(f"Epochs: {epochs}")
 
-    model = MyAwesomeModel()
-
     # Load mnist/data/processed/trainset.pt
-    train_set = torch.load("data/processed/training.pt")
-    trainloader = torch.utils.data.DataLoader(train_set, batch_size=64, shuffle=True)
+    train_dataset = torch.load("data/processed/train.pt")
+
+    print("Training dataset loaded")
+    # print train data size
+    print("Training dataset size: {}".format(len(train_dataset)))
+
+    if dev:
+        print("Using dev set for training, taking first 100 samples")
+        train_dataset = torch.load("data/processed/train_dev.pt")
+        print("Dev dataset loaded")
+        print("Dev dataset size: {}".format(len(train_dataset)))
+
+    train_loader  = create_loader(train_dataset, input_size=(3, 32, 32), batch_size=8, use_prefetcher=False, 
+                              is_training=True, no_aug=True, transform=transform)
     
-    model.train()
+
+
+    model = MyAwesomeModel(classes=10).model()
 
     criterion = nn.NLLLoss()
-    optimizer = optim.Adam(model.parameters(), lr=lr)
+
+    # Create optimiser
+    args = SimpleNamespace()
+    args.weight_decay = 0
+    args.lr = lr
+    args.opt = 'adam' #'lookahead_adam' to use `lookahead`
+    args.momentum = 0.9
+
+    optimizer = create_optimizer(args, model)
 
     training_loss = []
+
+    tk0 = tqdm(enumerate(train_loader), total=len(train_loader))
 
     for e in range(epochs):
         print(f"Epoch {e+1}/{epochs}")
         running_loss = 0
-        for images, labels in trainloader:
-            
-            optimizer.zero_grad()
-            
-            log_ps = model(images)
-            loss = criterion(log_ps, labels)
+        for i, (inputs, targets) in tk0:
+            preds = model(inputs)
+            loss = criterion(preds, targets)
             loss.backward()
             optimizer.step()
+            optimizer.zero_grad()
+            tk0.set_postfix(loss=loss.item())
             
             running_loss += loss.item()
         else:
