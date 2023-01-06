@@ -43,8 +43,7 @@ def predict(model_path, data_path, dev):
         print("Dev dataset loaded")
         print("Dev dataset size: {}".format(len(test_dataset)))
 
-    test_loader  = create_loader(test_dataset, input_size=(3, 32, 32), batch_size=64, use_prefetcher=False, 
-                              is_training=False, no_aug=True, transform=transform)
+    testloader = torch.utils.data.DataLoader(test_dataset, batch_size=64, shuffle=True)
 
     model = MyAwesomeModel(classes=10).model()
 
@@ -52,9 +51,9 @@ def predict(model_path, data_path, dev):
 
     with torch.no_grad():
         accuracy = 0
-        for i, (inputs, targets) in tk0:
-    
-            log_ps = model(inputs)
+        for images, labels in tqdm(testloader):
+
+            log_ps = model(images)
 
             ps = torch.exp(log_ps)
             top_p, top_class = ps.topk(1, dim=1)
@@ -70,7 +69,6 @@ cli.add_command(predict)
 if __name__ == "__main__":
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     logging.basicConfig(level=logging.INFO, format=log_fmt)
-
     
 
     # Print help message if no arguments are given
