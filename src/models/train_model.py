@@ -56,7 +56,7 @@ def train(lr, epochs, dev):
         print("Dev dataset size: {}".format(len(train_dataset)))
 
     train_loader  = create_loader(train_dataset, input_size=(3, 32, 32), batch_size=8, use_prefetcher=False, 
-                              is_training=True, no_aug=True, transform=transform)
+                              is_training=True, no_aug=True)
     
 
 
