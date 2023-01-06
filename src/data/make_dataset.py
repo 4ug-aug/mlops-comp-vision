@@ -6,7 +6,7 @@ from dotenv import find_dotenv, load_dotenv
 from torchvision import datasets, transforms
 import torch
 import numpy as np
-
+import timm
 
 @click.command()
 @click.argument('input_filepath', type=click.Path(exists=True))
@@ -18,26 +18,12 @@ def main(input_filepath, output_filepath):
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
 
-    X_train = np.load('data/raw/train_0.npz')['images']
-    y_train = np.load('data/raw/train_0.npz')['labels']
-
-    for i in range(1, 5):
-        X_train = np.concatenate((X_train, np.load(f'data/raw/train_{i}.npz')['images']), axis=0)
-        y_train = np.concatenate((y_train, np.load(f'data/raw/train_{i}.npz')['labels']), axis=0)
-        
-    
-    X_test = np.load('data/raw/test.npz')["images"]
-    y_test = np.load('data/raw/test.npz')["labels"]
-
-    # Add labels to the test set
-    test = torch.utils.data.TensorDataset(torch.from_numpy(X_test).float(), torch.from_numpy(y_test).long())
-
-    # Add labels to the train set
-    train = torch.utils.data.TensorDataset(torch.from_numpy(X_train).float(), torch.from_numpy(y_train).long())
+    train_dataset = timm.data.create_dataset('torch/cifar10','cifar10',download=True,split='train')
+    test_dataset = timm.data.create_dataset('torch/cifar10','cifar10',download=True,split='test')
 
     # Save the data
-    torch.save(train, 'data/processed/training.pt')
-    torch.save(test, 'data/processed/test.pt')
+    torch.save(train_dataset, output_filepath + '/train.pt')
+    torch.save(test_dataset, output_filepath + '/test.pt')
 
 
 if __name__ == '__main__':
