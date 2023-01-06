@@ -23,12 +23,8 @@ from hydra.utils import get_original_cwd
 
 from utils import count_files
 
-@hydra.main(config_path='conf/',config_name="config")
+@hydra.main(config_path='conf/',config_name="train")
 def main(cfg):
-    os.chdir(get_original_cwd())
-    print("hallo")
-    print(os.getcwd())
-    print("hallo")
     """ Train a model and save loss plot and model checkpoint
 
     Args:
@@ -48,12 +44,12 @@ def main(cfg):
 
     if cfg.hyperparameters.dev:
         print("Using dev set for training, taking first 100 samples")
-        train_dataset = torch.load(cfg.hyperparameters.dataset + "/train_dev.pt")
+        train_dataset = torch.load(get_original_cwd() + cfg.hyperparameters.dataset + "/train_dev.pt")
         print("Dev dataset loaded")
         print("Dev dataset size: {}".format(len(train_dataset)))
     else:
         # Load mnist/data/processed/trainset.pt
-        train_dataset = torch.load(cfg.hyperparameters.dataset + "/train.pt")
+        train_dataset = torch.load(get_original_cwd() + cfg.hyperparameters.dataset + "/train.pt")
         print("Training dataset loaded")
         # print train data size
         print("Training dataset size: {}".format(len(train_dataset)))
@@ -64,7 +60,7 @@ def main(cfg):
 
     criterion = nn.CrossEntropyLoss()
 
-    # Create optimiser
+    # Create optimizer
     args = SimpleNamespace()
     args.weight_decay = cfg.hyperparameters.weight_decay
     args.lr = cfg.hyperparameters.lr
@@ -95,14 +91,14 @@ def main(cfg):
     plt.plot(training_loss, label='Training loss')
     plt.legend(frameon=False)
 
-    new_path = count_files("reports/figures")
+    new_path = count_files(get_original_cwd() + "/reports/figures")
 
     # Save plot
-    plt.savefig(f"reports/figures/training_loss_{new_path}.png")
+    plt.savefig(f"{get_original_cwd()}/reports/figures/training_loss_{new_path}.png")
 
     # Generate unique name for model
-    new_path = count_files("models/trained_models")
-    new_path = f"models/trained_models/model_checkpoint_{new_path}.pth"
+    new_path = count_files(get_original_cwd() + "/models/trained_models")
+    new_path = f"{get_original_cwd()}/models/trained_models/model_checkpoint_{new_path}.pth"
 
     print("Saving model as model_checkpoint.pth")
     print("Path: {}".format(new_path))
