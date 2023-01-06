@@ -26,6 +26,17 @@ latest_model = get_latest_model()
 @click.option("--dev", default=True, help='use dev set for testing')
 
 def predict(model_path, data_path, dev):
+    """ Predicts the model on the test set and prints the accuracy.
+
+    Args:
+        model_path (str): path to model
+        data_path (str): path to data
+        dev (bool): use dev set for testing
+
+    Returns:
+        None
+    """
+
     logger = logging.getLogger(__name__)
 
     logger.info('Testing model')

@@ -13,8 +13,12 @@ import timm
 @click.argument('input_filepath', type=click.Path(exists=True))
 @click.argument('output_filepath', type=click.Path())
 def main(input_filepath, output_filepath):
-    """ Runs data processing scripts to turn raw data from ('~/.pytorch/MNIST_data/') into
-        cleaned data ready to be analyzed (saved in ../processed).
+    """ Runs data processing scripts to download data from torchvision and save it in ../processed.
+
+    Args:
+        input_filepath (str): Path to the raw data
+        output_filepath (str): Path to the processed data
+
     """
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')

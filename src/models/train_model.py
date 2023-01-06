@@ -29,13 +29,24 @@ def cli():
 
 @click.command()
 @click.option("--lr", default=1e-3, help='learning rate to use for training')
-@click.option("--epochs", default=1, help='number of epochs to train for')
+@click.option("--epochs", default=5, help='number of epochs to train for')
 @click.option("--dev", default=True, help='use dev set for training')
 
 # Make help message for the train command
 @click.help_option("--help", "-h")
 
 def train(lr, epochs, dev):
+    """ Train a model and save loss plot and model checkpoint
+
+    Args:
+        lr (float): learning rate to use for training
+        epochs (int): number of epochs to train for
+        dev (bool): use dev set for training
+
+    Returns:
+        None
+    """
+
     logger = logging.getLogger(__name__)
 
     logger.info('training model')
