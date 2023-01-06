@@ -10,6 +10,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from torch import nn, optim
 
+from tqdm import tqdm
+
 from utils import *
 
 @click.group()
@@ -45,9 +47,9 @@ def predict(model_path, data_path, dev):
 
     testloader = torch.utils.data.DataLoader(test_dataset, batch_size=64, shuffle=True)
 
-    model = MyAwesomeModel(classes=10).model()
+    model = torch.load(model_path)
 
-    criterion = nn.NLLLoss()
+    criterion = nn.CrossEntropyLoss()
 
     with torch.no_grad():
         accuracy = 0
@@ -57,7 +59,7 @@ def predict(model_path, data_path, dev):
 
             ps = torch.exp(log_ps)
             top_p, top_class = ps.topk(1, dim=1)
-            equals = top_class == targets.view(*top_class.shape)
+            equals = top_class == labels.view(*top_class.shape)
             accuracy += torch.mean(equals.type(torch.FloatTensor))
         
     print("Accuracy: ", accuracy.item()/len(testloader)*100)
