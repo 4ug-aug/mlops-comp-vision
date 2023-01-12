@@ -40,17 +40,18 @@ def main(input_filepath, output_filepath):
     # test_dataset = datasets.CIFAR10(input_filepath, download=True, train=False, transform=transform)
 
     data = pd.read_csv(input_filepath+"/BUTTERFLIES.csv")
-
+    #data = data[data["class index"] <= 80]
     # train
     trainset = data[data["data set"] == "train"]
     
     train_imgs = PIL_to_tensor(input_filepath,trainset["filepaths"])
    
     train_labels = torch.Tensor(trainset["class index"].values)
-
+    
     trainset = torch.utils.data.TensorDataset(train_imgs.float(),train_labels.long())
-
+    
     torch.save(trainset, output_filepath+"/train.pt")
+
 
     # test
 
@@ -107,8 +108,9 @@ if __name__ == '__main__':
     # load up the .env entries as environment variables
     load_dotenv(find_dotenv())
 
-    try:
-        main()
+    main()
+    
+    """
     except Exception as e:
         print("Error: ", e)
         input_ = "y"
@@ -120,3 +122,4 @@ if __name__ == '__main__':
         else:
             print("Exiting...")
             exit()
+    """
