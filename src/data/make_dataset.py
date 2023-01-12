@@ -29,6 +29,10 @@ def main(input_filepath, output_filepath):
     transform = transforms.Compose([transforms.ToTensor(),
                                 transforms.Normalize((0.5,), (0.5,))])
 
+    # for us. run this once to run locally
+    # train_dataset = datasets.CIFAR10(input_filepath, download=True, train=True, transform=transform)
+    # test_dataset = datasets.CIFAR10(input_filepath, download=True, train=False, transform=transform)
+
     train_dataset = datasets.CIFAR10(input_filepath, train=True, transform=transform)
     test_dataset = datasets.CIFAR10(input_filepath,train=False, transform=transform)
 
