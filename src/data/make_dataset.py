@@ -29,8 +29,8 @@ def main(input_filepath, output_filepath):
     transform = transforms.Compose([transforms.ToTensor(),
                                 transforms.Normalize((0.5,), (0.5,))])
 
-    train_dataset = datasets.CIFAR10('torch/cifar10', download=True, train=True, transform=transform)
-    test_dataset = datasets.CIFAR10('torch/cifar10', download=True, train=False, transform=transform)
+    train_dataset = datasets.CIFAR10(input_filepath, train=True, transform=transform)
+    test_dataset = datasets.CIFAR10(input_filepath,train=False, transform=transform)
 
     # Save the data
     torch.save(train_dataset, output_filepath + '/train.pt')
