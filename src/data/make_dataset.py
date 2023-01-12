@@ -40,6 +40,7 @@ def main(input_filepath, output_filepath):
     # test_dataset = datasets.CIFAR10(input_filepath, download=True, train=False, transform=transform)
 
     data = pd.read_csv(input_filepath+"/BUTTERFLIES.csv")
+    data = data[data['class index'] <= 60]
 
     # train
     trainset = data[data["data set"] == "train"]
@@ -51,6 +52,8 @@ def main(input_filepath, output_filepath):
     trainset = torch.utils.data.TensorDataset(train_imgs.float(),train_labels.long())
 
     torch.save(trainset, output_filepath+"/train.pt")
+
+    del(trainset)
 
     # test
 
@@ -107,16 +110,4 @@ if __name__ == '__main__':
     # load up the .env entries as environment variables
     load_dotenv(find_dotenv())
 
-    try:
-        main()
-    except Exception as e:
-        print("Error: ", e)
-        input_ = "y"
-        input_ = input("Using unsecure connection? [y] ")
-        if input_ == 'y' or input_ == '':
-            import ssl 
-            ssl._create_default_https_context = ssl._create_unverified_context
-            main()
-        else:
-            print("Exiting...")
-            exit()
+    main()
