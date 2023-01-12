@@ -19,6 +19,9 @@ def main(input_filepath, output_filepath):
         input_filepath (str): Path to the raw data
         output_filepath (str): Path to the processed data
 
+    Returns:
+        None
+
     """
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
