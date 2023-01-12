@@ -7,6 +7,11 @@ from torchvision import datasets, transforms
 import torch
 import numpy as np
 import timm
+import os
+import pandas as pd
+from PIL import Image
+from tqdm import tqdm
+from src.data.utils import PIL_to_tensor
 
 
 @click.command()
@@ -27,28 +32,67 @@ def main(input_filepath, output_filepath):
     logger.info('making final data set from raw data')
 
     transform = transforms.Compose([transforms.ToTensor(),
-                                transforms.Normalize((0.5,), (0.5,))])
+                                    transforms.Normalize((0.5,), (0.5,)),
+                                    transforms.Resize((224,224))])
 
     # for us. run this once to run locally
     # train_dataset = datasets.CIFAR10(input_filepath, download=True, train=True, transform=transform)
     # test_dataset = datasets.CIFAR10(input_filepath, download=True, train=False, transform=transform)
 
-    train_dataset = datasets.CIFAR10(input_filepath, train=True, transform=transform)
-    test_dataset = datasets.CIFAR10(input_filepath,train=False, transform=transform)
+    data = pd.read_csv(input_filepath+"/BUTTERFLIES.csv")
+
+    # train
+    trainset = data[data["data set"] == "train"]
+    
+    train_imgs = PIL_to_tensor(input_filepath,trainset["filepaths"])
+   
+    train_labels = torch.Tensor(trainset["class index"].values)
+
+    trainset = torch.utils.data.TensorDataset(train_imgs,train_labels)
+
+    torch.save(trainset, output_filepath+"/train.pt")
+
+    # test
+
+    testset = data[data["data set"] == "test"]
+    
+    test_imgs = PIL_to_tensor(input_filepath,testset["filepaths"])
+    
+    test_labels = torch.Tensor(testset["class index"].values)
+    
+    testset = torch.utils.data.TensorDataset(test_imgs,test_labels)
+
+    torch.save(testset, output_filepath+"/test.pt")
+    
+    # validation
+
+    valset = data[data["data set"] == "valid"]
+    
+    val_imgs = PIL_to_tensor(input_filepath,valset["filepaths"])
+   
+    val_labels = torch.Tensor(valset["class index"].values)
+
+    valset = torch.utils.data.TensorDataset(val_imgs,val_labels)
+
+    torch.save(valset, output_filepath+"/val.pt")
+
+
+
+
 
     # Save the data
-    torch.save(train_dataset, output_filepath + '/train.pt')
-    torch.save(test_dataset, output_filepath + '/test.pt')
+    #torch.save(train_dataset, output_filepath + '/train.pt')
+    #torch.save(test_dataset, output_filepath + '/test.pt')
 
     # make dev set
-    train_indices = torch.randperm(len(train_dataset))[:5000]
-    train_dataset_dev = torch.utils.data.Subset(train_dataset, train_indices)
+    #train_indices = torch.randperm(len(train_dataset))[:5000]
+    #train_dataset_dev = torch.utils.data.Subset(train_dataset, train_indices)
 
-    test_indices = torch.randperm(len(test_dataset))[:1000]
-    test_dataset_dev = torch.utils.data.Subset(test_dataset, test_indices)
+    #test_indices = torch.randperm(len(test_dataset))[:1000]
+    #test_dataset_dev = torch.utils.data.Subset(test_dataset, test_indices)
 
-    torch.save(train_dataset_dev, output_filepath + '/train_dev.pt')
-    torch.save(test_dataset_dev, output_filepath + '/test_dev.pt')
+    #torch.save(train_dataset_dev, output_filepath + '/train_dev.pt')
+    #torch.save(test_dataset_dev, output_filepath + '/test_dev.pt')
 
 
 
