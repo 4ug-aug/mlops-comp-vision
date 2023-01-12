@@ -23,7 +23,7 @@ from hydra.utils import get_original_cwd
 
 from utils import count_files
 
-@hydra.main(config_path='conf/',config_name="train")
+@hydra.main(config_path='conf/',config_name="default_config.yaml")
 def main(cfg):
     """ Train a model and save loss plot and model checkpoint
 
@@ -38,9 +38,11 @@ def main(cfg):
 
     logger = logging.getLogger(__name__)
 
+    cfg = cfg.experiment
     logger.info('training model')
     logger.info(f"Learning Rate: {cfg.hyperparameters.lr}")
     logger.info(f"Epochs: {cfg.hyperparameters.epochs}")
+
 
     if cfg.hyperparameters.dev:
         print("Using dev set for training, taking first 100 samples")

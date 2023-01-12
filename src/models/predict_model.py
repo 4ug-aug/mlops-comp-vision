@@ -14,10 +14,6 @@ from tqdm import tqdm
 
 from utils import *
 
-@click.group()
-def cli():
-    pass
-
 latest_model = get_latest_model()
 
 @click.command()
@@ -74,9 +70,6 @@ def predict(model_path, data_path, dev):
             accuracy += torch.mean(equals.type(torch.FloatTensor))
         
     print("Accuracy: ", accuracy.item()/len(testloader)*100)
-
-
-cli.add_command(predict)
 
 
 if __name__ == "__main__":
