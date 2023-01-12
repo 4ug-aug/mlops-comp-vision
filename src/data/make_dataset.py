@@ -48,7 +48,7 @@ def main(input_filepath, output_filepath):
    
     train_labels = torch.Tensor(trainset["class index"].values)
 
-    trainset = torch.utils.data.TensorDataset(train_imgs,train_labels)
+    trainset = torch.utils.data.TensorDataset(train_imgs.float(),train_labels.long())
 
     torch.save(trainset, output_filepath+"/train.pt")
 
@@ -60,7 +60,7 @@ def main(input_filepath, output_filepath):
     
     test_labels = torch.Tensor(testset["class index"].values)
     
-    testset = torch.utils.data.TensorDataset(test_imgs,test_labels)
+    testset = torch.utils.data.TensorDataset(test_imgs.float(),test_labels.long())
 
     torch.save(testset, output_filepath+"/test.pt")
     
@@ -72,7 +72,7 @@ def main(input_filepath, output_filepath):
    
     val_labels = torch.Tensor(valset["class index"].values)
 
-    valset = torch.utils.data.TensorDataset(val_imgs,val_labels)
+    valset = torch.utils.data.TensorDataset(val_imgs.float(),val_labels.long())
 
     torch.save(valset, output_filepath+"/val.pt")
 
