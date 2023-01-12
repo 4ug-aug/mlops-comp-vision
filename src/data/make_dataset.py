@@ -40,7 +40,12 @@ def main(input_filepath, output_filepath):
     # test_dataset = datasets.CIFAR10(input_filepath, download=True, train=False, transform=transform)
 
     data = pd.read_csv(input_filepath+"/BUTTERFLIES.csv")
+<<<<<<< HEAD
     #data = data[data["class index"] <= 80]
+=======
+    data = data[data['class index'] <= 60]
+
+>>>>>>> 8f4d9ebba7d791d51cb11a3a55c9e88ebc9ba71d
     # train
     trainset = data[data["data set"] == "train"]
     
@@ -52,6 +57,10 @@ def main(input_filepath, output_filepath):
     
     torch.save(trainset, output_filepath+"/train.pt")
 
+<<<<<<< HEAD
+=======
+    del(trainset)
+>>>>>>> 8f4d9ebba7d791d51cb11a3a55c9e88ebc9ba71d
 
     # test
 
@@ -108,6 +117,7 @@ if __name__ == '__main__':
     # load up the .env entries as environment variables
     load_dotenv(find_dotenv())
 
+<<<<<<< HEAD
     main()
     
     """
@@ -123,3 +133,6 @@ if __name__ == '__main__':
             print("Exiting...")
             exit()
     """
+=======
+    main()
+>>>>>>> 8f4d9ebba7d791d51cb11a3a55c9e88ebc9ba71d
