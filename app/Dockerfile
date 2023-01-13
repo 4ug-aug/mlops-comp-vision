@@ -9,6 +9,8 @@ RUN apt update && \
 # Copy essential files
 COPY requirements.txt requirements.txt
 COPY setup.py setup.py
+COPY src/ src/
+RUN pip install -e .
 
 RUN apt-get update
 RUN apt-get install ffmpeg libsm6 libxext6  -y
