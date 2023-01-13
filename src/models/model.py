@@ -15,12 +15,7 @@ class MyAwesomeModel(nn.Module):
 
         self.cnn = timm.create_model(self.model_name,pretrained=self.pretrained,num_classes = self.classes)
 
-        self.fc1 = nn.Linear(3*32*32, 3*224*224)
-    
     def forward(self,x):
-        x = x.view(x.size(0), -1)
-        x = F.relu(self.fc1(x))
-        x = x.view((x.size(0),3,224,224))
         x = self.cnn(x)
         return x
         

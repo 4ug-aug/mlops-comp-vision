@@ -2,7 +2,6 @@ import argparse
 import sys
 import logging
 import os
-
 import torch
 from torchvision import transforms
 
@@ -39,38 +38,24 @@ def main(cfg):
     logger = logging.getLogger(__name__)
 
     cfg = cfg.experiment
-    logger.info('training model')
+    logger.info('Training model')
     logger.info(f"Learning Rate: {cfg.hyperparameters.lr}")
     logger.info(f"Epochs: {cfg.hyperparameters.epochs}")
 
+    trainset = torch.load(f"{get_original_cwd()}/data/processed/train.pt")
+    
+    trainloader = torch.utils.data.DataLoader(trainset, batch_size=cfg.hyperparameters.batch_size, shuffle=True)
 
-    if cfg.hyperparameters.dev:
-        print("Using dev set for training, taking first 100 samples")
-        train_dataset = torch.load(get_original_cwd() + cfg.hyperparameters.dataset + "/train_dev.pt")
-        print("Dev dataset loaded")
-        print("Dev dataset size: {}".format(len(train_dataset)))
-    else:
-        # Load mnist/data/processed/trainset.pt
-        train_dataset = torch.load(get_original_cwd() + cfg.hyperparameters.dataset + "/train.pt")
-        print("Training dataset loaded")
-        # print train data size
-        print("Training dataset size: {}".format(len(train_dataset)))
-
-    trainloader = torch.utils.data.DataLoader(train_dataset, batch_size=cfg.hyperparameters.batch_size, shuffle=True)
-
-    model = MyAwesomeModel(classes=cfg.hyperparameters.n_classes).model()
+    model = MyAwesomeModel(classes=cfg.hyperparameters.n_classes)
 
     criterion = nn.CrossEntropyLoss()
 
-    # Create optimizer
-    args = SimpleNamespace()
-    args.weight_decay = cfg.hyperparameters.weight_decay
-    args.lr = cfg.hyperparameters.lr
-    args.opt = cfg.hyperparameters.opt #'lookahead_adam' to use `lookahead`
-    args.momentum = cfg.hyperparameters.momentum
 
-    optimizer = create_optimizer(args, model)
-
+    if cfg.hyperparameters.opt == "adam":
+        optimizer = optim.Adam(model.parameters(), 
+                               lr=cfg.hyperparameters.lr,
+                               weight_decay=cfg.hyperparameters.weight_decay)
+    
     training_loss = []
 
     for e in range(cfg.hyperparameters.epochs):
@@ -81,9 +66,10 @@ def main(cfg):
             preds = model(images)
             loss = criterion(preds, labels)
             loss.backward()
+            
             optimizer.step()
             optimizer.zero_grad()
-            
+
             running_loss += loss.item()
         else:
             training_loss.append(running_loss/cfg.hyperparameters.batch_size)

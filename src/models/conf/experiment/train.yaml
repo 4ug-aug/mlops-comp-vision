@@ -3,7 +3,6 @@ hyperparameters:
   epochs: 5
   lr: 0.001
   batch_size: 64
-  dev: 1 # true, i.e. use dev dataset
   dataset: '/data/processed'
   n_classes: 10
   weight_decay: 0
