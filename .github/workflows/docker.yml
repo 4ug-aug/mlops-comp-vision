@@ -16,7 +16,6 @@ jobs:
         password: ${{ secrets.DOCKER_HUB_TOKEN_2 }}
     - name: Build the Docker image
       run: |
-        cd app/
-        docker build . --file Dockerfile \
+        docker build app/. --file Dockerfile \
           --tag dockter2/ml-ops-com-vision:$GITHUB_SHA
         docker push dockter2/ml-ops-com-vision:$GITHUB_SHA
