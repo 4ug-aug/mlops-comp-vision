@@ -26,3 +26,7 @@ jobs:
       run: |
         pip install pytest
         pytest -v
+    - name: Calculate coverage
+      run: |
+        pip install coverage
+        coverage run -m pytest tests/
