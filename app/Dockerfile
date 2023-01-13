@@ -1,6 +1,6 @@
 FROM python:3.9
 WORKDIR /code
-COPY mlops-comp-vision/requirements.txt requirements.txt
+COPY ./requirements.txt requirements.txt
 COPY models/ models/
 
 RUN apt-get update
