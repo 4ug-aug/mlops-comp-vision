@@ -8,3 +8,4 @@ hyperparameters:
   weight_decay: 0
   opt: 'adam' # optimizer
   momentum: 0.9
+  unit_testing: False
