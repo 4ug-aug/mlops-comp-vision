@@ -1,0 +1,11 @@
+experiment:
+  hyperparameters:
+    epochs: 5
+    lr: 0.001
+    batch_size: 64
+    dataset: /data/processed
+    n_classes: 10
+    weight_decay: 0
+    opt: adam
+    momentum: 0.9
+    unit_testing: false

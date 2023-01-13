@@ -11,7 +11,7 @@ from timm.optim.optim_factory import create_optimizer
 from timm.data import create_dataset, create_loader
 from types import SimpleNamespace
 
-from model import MyAwesomeModel
+from src.models.model import MyAwesomeModel
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -20,7 +20,7 @@ from tqdm import tqdm
 import hydra
 from hydra.utils import get_original_cwd
 
-from utils import count_files
+from src.models.utils import count_files
 
 @hydra.main(config_path='conf/',config_name="default_config.yaml")
 def main(cfg):
@@ -42,12 +42,15 @@ def main(cfg):
     logger.info(f"Learning Rate: {cfg.hyperparameters.lr}")
     logger.info(f"Epochs: {cfg.hyperparameters.epochs}")
 
-    trainset = torch.load(f"{get_original_cwd()}/data/processed/train.pt")
+    if not cfg.hyperparameters.unit_testing:
+        trainset = torch.load(f"{get_original_cwd()}/{cfg.hyperparameters.dataset}/train.pt")
+    else:
+        trainset = torch.load(f"{cfg.hyperparameters.dataset}/val.pt")
     
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=cfg.hyperparameters.batch_size, shuffle=True)
 
     model = MyAwesomeModel(classes=cfg.hyperparameters.n_classes)
-
+    print(cfg.hyperparameters.n_classes)
     criterion = nn.CrossEntropyLoss()
 
 
@@ -63,18 +66,22 @@ def main(cfg):
         running_loss = 0
         for images, labels in tqdm(trainloader):
             
+            optimizer.zero_grad()
+            
             preds = model(images)
             loss = criterion(preds, labels)
             loss.backward()
             
             optimizer.step()
-            optimizer.zero_grad()
-
             running_loss += loss.item()
         else:
             training_loss.append(running_loss/cfg.hyperparameters.batch_size)
             print(f"Training loss: {training_loss[-1]}")
 
+
+    if cfg.hyperparameters.unit_testing:
+        return running_loss
+    
     # plot the training loss
     plt.plot(training_loss, label='Training loss')
     plt.legend(frameon=False)
