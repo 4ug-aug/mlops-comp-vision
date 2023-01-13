@@ -5,14 +5,14 @@ import pytest
 
 @pytest.mark.parametrize("batch_size", [16,32,64,128])
 def test_model_batches(batch_size):
-    model = MyAwesomeModel()
+    model = MyAwesomeModel(classes=20)
     trainset, _ , _= load_data()
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size)
     imgs, _ = next(iter(trainloader))
     assert model(imgs).shape == torch.Size([batch_size,20])
 
 def test_model_single():
-    model = MyAwesomeModel()
+    model = MyAwesomeModel(classes=20)
     trainset, _, _ = load_data()
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=64)
     imgs, _ = next(iter(trainloader))

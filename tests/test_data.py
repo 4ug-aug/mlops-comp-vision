@@ -9,7 +9,7 @@ def test_data_shape():
     trainset, testset, valset = load_data()
     assert trainset[:][0].shape == (len(trainset), 3, 224, 224)
     assert testset[:][0].shape == (len(testset), 3, 224, 224)
-    assert valset[:][0].shaoe == (len(valset), 3, 224, 224)
+    assert valset[:][0].shape == (len(valset), 3, 224, 224)
 
 def test_data_size():
     trainset, testset, valset = load_data()
