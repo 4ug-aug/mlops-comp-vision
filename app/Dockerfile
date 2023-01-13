@@ -1,5 +1,5 @@
 FROM python:3.9
-COPY ./requirements.txt requirements.txt
+COPY requirements.txt requirements.txt
 COPY models/ models/
 
 RUN apt-get update
