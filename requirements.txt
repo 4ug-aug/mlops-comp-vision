@@ -81,7 +81,6 @@ tornado
 tqdm
 traitlets
 typing_extensions
-coverage
 urllib3
 wcwidth
 zipp
