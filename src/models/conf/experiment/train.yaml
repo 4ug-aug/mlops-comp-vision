@@ -1,10 +1,10 @@
 #config.yaml
 hyperparameters:
-  epochs: 5
+  epochs: 1
   lr: 0.001
   batch_size: 64
-  dataset: '/data/processed'
-  n_classes: 10
+  dataset: 'data/processed'
+  n_classes: 12
   weight_decay: 0
   opt: 'adam' # optimizer
   momentum: 0.9

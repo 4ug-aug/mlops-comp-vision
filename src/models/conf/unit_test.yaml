@@ -3,9 +3,8 @@ hyperparameters:
   epochs: 1
   lr: 0.001
   batch_size: 64
-  dev: 0 # true, i.e. use dev dataset
   dataset: 'data/processed'
-  n_classes: 10
+  n_classes: 12
   weight_decay: 0
   opt: 'adam' # optimizer
   momentum: 0.9
