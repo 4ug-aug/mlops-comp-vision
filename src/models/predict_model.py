@@ -40,7 +40,7 @@ def predict(model_path, data_path, dev):
     logger.info(f"Data path: {data_path}")
 
     # Load mnist/data/processed/trainset.pt
-    test_dataset = torch.load("data/processed/test_dev.pt")
+    test_dataset = torch.load(data_path)
 
     print("Testing dataset loaded")
     # print train data size
