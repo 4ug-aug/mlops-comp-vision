@@ -4,8 +4,9 @@ hyperparameters:
   lr: 0.001
   batch_size: 64
   dev: 1 # true, i.e. use dev dataset
-  dataset: '/data/processed'
+  dataset: 'data/processed'
   n_classes: 10
   weight_decay: 0
   opt: 'adam' # optimizer
   momentum: 0.9
+  unit_testing: False
