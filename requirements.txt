@@ -88,7 +88,5 @@ zipp
 # App Requirements
 fastapi>=0.68.0,<0.69.0
 uvicorn>=0.15.0,<0.16.0
-requests
-pillow
 python-multipart
 -e .
