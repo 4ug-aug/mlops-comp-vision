@@ -4,7 +4,7 @@ hyperparameters:
   lr: 0.001
   batch_size: 64
   dataset: 'data/processed'
-  n_classes: 12
+  n_classes: 20
   weight_decay: 0
   opt: 'adam' # optimizer
   momentum: 0.9
