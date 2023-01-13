@@ -1,7 +1,4 @@
 from fastapi import FastAPI
-from http import HTTPStatus
-from enum import Enum
-import re
 from fastapi import UploadFile, File
 from typing import Optional
 import cv2
@@ -39,7 +36,7 @@ app = FastAPI()
 @app.get('/')
 async def upload_form_file():
     return HTMLResponse(content="""
-      <h1> Upload an image for caption generation</h1>
+      <h1> Upload an image of a butterfly to have it classified</h1>
       <form method="post" action="/uploadfile/" enctype="multipart/form-data">
          <input name="file" type="file">
          <input type="submit">
@@ -47,7 +44,7 @@ async def upload_form_file():
 
 @app.post("/uploadfile/")
 # Example post url = localhost:8000/uploadfile/?filename=hello.txt
-async def create_upload_file(file: UploadFile = File(...), h: Optional[int] = 28, w: Optional[int] = 28):
+async def create_upload_file(file: UploadFile = File(...), h: Optional[int] = 224, w: Optional[int] = 224):
    contents = await file.read()
    # Save file locally
    with open(file.filename, "wb") as f:
