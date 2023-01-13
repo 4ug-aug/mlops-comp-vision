@@ -21,6 +21,3 @@ jobs:
     - name: Push the Docker image
       run: |
         docker push dockter2/ml-ops-com-vision:$GITHUB_SHA
-    - name: Try to run the Docker image
-      run: |
-        docker run dockter2/ml-ops-com-vision:$GITHUB_SHA
