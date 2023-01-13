@@ -40,7 +40,6 @@ def main(input_filepath, output_filepath):
     # test_dataset = datasets.CIFAR10(input_filepath, download=True, train=False, transform=transform)
 
     data = pd.read_csv(input_filepath+"/BUTTERFLIES.csv")
-    data = data[data['class index'] <= 11]
 
     # train
     trainset = data[data["data set"] == "train"]

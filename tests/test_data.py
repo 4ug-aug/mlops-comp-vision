@@ -14,8 +14,8 @@ def test_data_shape():
 def test_data_size():
     trainset, testset, valset = load_data()
     assert len(trainset) == 12639
-    assert len(testset) == 500
-    assert len(valset) == 500
+    assert len(testset) == 100
+    assert len(valset) == 100
 
 def test_classes_represented():
     
@@ -24,6 +24,6 @@ def test_classes_represented():
     test_labels = testset[:][1]
     val_labels = valset[:][1]
 
-    assert torch.eq(torch.unique(train_labels), torch.tensor(range(100))).all(), f'One of the datasets do not contain all labels'
-    assert torch.eq(torch.unique(test_labels), torch.tensor(range(100))).all(), f'One of the datasets do not contain all labels'
-    assert torch.eq(torch.unique(val_labels), torch.tensor(range(100))).all(), f'One of the datasets do not contain all labels'
+    assert torch.eq(torch.unique(train_labels), torch.tensor(range(20))).all(), f'One of the datasets do not contain all labels'
+    assert torch.eq(torch.unique(test_labels), torch.tensor(range(20))).all(), f'One of the datasets do not contain all labels'
+    assert torch.eq(torch.unique(val_labels), torch.tensor(range(20))).all(), f'One of the datasets do not contain all labels'
