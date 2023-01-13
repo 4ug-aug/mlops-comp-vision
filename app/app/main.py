@@ -4,32 +4,27 @@ from typing import Optional
 import cv2
 from fastapi.responses import HTMLResponse
 from fastapi.responses import FileResponse
-from transformers import VisionEncoderDecoderModel, ViTFeatureExtractor, AutoTokenizer
 import torch
 from PIL import Image
+import os
 
-model = VisionEncoderDecoderModel.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
-feature_extractor = ViTFeatureExtractor.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
-tokenizer = AutoTokenizer.from_pretrained("nlpconnect/vit-gpt2-image-captioning")
-
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model.to(device)
-
-gen_kwargs = {"max_length": 16, "num_beams": 8, "num_return_sequences": 1}
 def predict_step(image_paths):
-   images = []
-   for image_path in image_paths:
-      i_image = Image.open(image_path)
-      if i_image.mode != "RGB":
-         i_image = i_image.convert(mode="RGB")
+   # Load model checkpoint
+   device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+   # Get latest model checkpoint from models/trained_models
+   latest_model_checkpoint = max([os.path.join("models/trained_models", f) for f in os.listdir("models/trained_models")], key=os.path.getctime)
 
-      images.append(i_image)
-   pixel_values = feature_extractor(images=images, return_tensors="pt").pixel_values
-   pixel_values = pixel_values.to(device)
-   output_ids = model.generate(pixel_values, **gen_kwargs)
-   preds = tokenizer.batch_decode(output_ids, skip_special_tokens=True)
-   preds = [pred.strip() for pred in preds]
-   return preds
+   model = torch.load(latest_model_checkpoint)
+
+   # Load image
+   image = Image.open(image_paths[0])
+   with torch.no_grad():
+      log_ps = model(image)
+
+      ps = torch.exp(log_ps)
+      top_p, top_class = ps.topk(1, dim=1)
+
+   return top_class
 
 app = FastAPI()
 
