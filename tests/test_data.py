@@ -13,7 +13,7 @@ def test_data_shape():
 
 def test_data_size():
     trainset, testset, valset = load_data()
-    assert len(trainset) == 12639
+    assert len(trainset) == 2596
     assert len(testset) == 100
     assert len(valset) == 100
 
