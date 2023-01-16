@@ -1,4 +1,5 @@
 outs:
 - md5: 90637bf67a602324c7f4e129d6bab46d
   size: 70426814
+  isexec: true
   path: butterflies.zip
