@@ -13,12 +13,7 @@ COPY src/ src/
 RUN pip install -e .
 
 RUN apt-get update
-RUN apt-get install ffmpeg libsm6 libxext6  -y
-
-# install libgit
-RUN apt-get add --no-cache libgit2
-RUN apt-get add --no-cache libgit2-dev
-
+RUN apt-get install ffmpeg libsm6 libxext6 libgit2 libgit2-dev -y
 
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 COPY ./app /app
