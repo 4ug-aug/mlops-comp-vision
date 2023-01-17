@@ -52,6 +52,11 @@ def main(input_filepath, output_filepath):
     
     torch.save(trainset, output_filepath+"/train.pt")
 
+    # used for unit testing
+    dev_size = 100
+    trainset_dev = torch.utils.data.TensorDataset(train_imgs[:dev_size].float(),train_labels[:dev_size].long())
+
+    torch.save(trainset_dev, output_filepath+"/train_dev.pt")
 
     # test
 

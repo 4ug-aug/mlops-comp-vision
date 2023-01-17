@@ -1,25 +1,29 @@
 import torch
-from src.data.make_dataset import main
-from src.data.load_data import load_data
 import os
 
 
 def test_data_shape():
 
-    trainset, testset, valset = load_data()
+    trainset = torch.load("data/processed/train_dev.pt")
+    testset = torch.load("data/processed/test.pt")
+    valset = torch.load("data/processed/val.pt")
     assert trainset[:][0].shape == (len(trainset), 3, 224, 224)
     assert testset[:][0].shape == (len(testset), 3, 224, 224)
     assert valset[:][0].shape == (len(valset), 3, 224, 224)
 
 def test_data_size():
-    trainset, testset, valset = load_data()
-    assert len(trainset) == 2596
+    trainset = torch.load("data/processed/train_dev.pt")
+    testset = torch.load("data/processed/test.pt")
+    valset = torch.load("data/processed/val.pt")
+    assert len(trainset) == 100 # not possible to store full trainset on git
     assert len(testset) == 100
     assert len(valset) == 100
 
 def test_classes_represented():
     
-    trainset, testset, valset = load_data()
+    trainset = torch.load("data/processed/train_dev.pt")
+    testset = torch.load("data/processed/test.pt")
+    valset = torch.load("data/processed/val.pt")
     train_labels = trainset[:][1]
     test_labels = testset[:][1]
     val_labels = valset[:][1]
