@@ -16,6 +16,7 @@ COPY data/ data/
 
 # Install dependencies
 WORKDIR /
+RUN pip install --upgrade pip
 RUN pip install -e .
 RUN pip install -r requirements.txt --no-cache-dir
 
