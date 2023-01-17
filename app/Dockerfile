@@ -7,7 +7,7 @@ RUN apt update && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
 # install libgit
-RUN apk add --no-cache \
+RUN apt-get add --no-cache \
     libgit2 \
     libgit2-dev
 
