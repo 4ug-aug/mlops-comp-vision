@@ -13,7 +13,7 @@ COPY src/ src/
 RUN pip install -e .
 
 RUN apt-get update
-RUN apt-get install ffmpeg libsm6 libxext6 -y
+RUN apt-get install ffmpeg libsm6 libxext6 wget -y
 
 ENV LIBGIT_VERSION 1.1.0
 
