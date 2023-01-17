@@ -11,7 +11,7 @@ import os
 import pandas as pd
 from PIL import Image
 from tqdm import tqdm
-from src.data.utils import PIL_to_tensor
+from utils import PIL_to_tensor
 
 
 @click.command()
@@ -53,8 +53,18 @@ def main(input_filepath, output_filepath):
     torch.save(trainset, output_filepath+"/train.pt")
 
     # used for unit testing
-    dev_size = 100
-    trainset_dev = torch.utils.data.TensorDataset(train_imgs[:dev_size].float(),train_labels[:dev_size].long())
+    n_classes = 20
+    dev_size_per_class = 5
+    # indexes to make sure each class is represented
+    indexes = []
+    occurrences = [0 for _ in range(n_classes)]
+    for i, idx in enumerate(train_labels.long()):
+        if occurrences[idx] == dev_size_per_class:
+            continue
+        indexes.append(i)
+        occurrences[idx] += 1
+
+    trainset_dev = torch.utils.data.TensorDataset(train_imgs[indexes].float(),train_labels[indexes].long())
 
     torch.save(trainset_dev, output_filepath+"/train_dev.pt")
 

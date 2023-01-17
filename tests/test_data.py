@@ -3,13 +3,13 @@ import os
 
 
 def test_data_shape():
-
+    
     trainset = torch.load("data/processed/train_dev.pt")
     testset = torch.load("data/processed/test.pt")
     valset = torch.load("data/processed/val.pt")
-    assert trainset[:][0].shape == (len(trainset), 3, 224, 224)
-    assert testset[:][0].shape == (len(testset), 3, 224, 224)
-    assert valset[:][0].shape == (len(valset), 3, 224, 224)
+    assert trainset[:][0].shape == (100, 3, 224, 224)
+    assert testset[:][0].shape == (100, 3, 224, 224)
+    assert valset[:][0].shape == (100, 3, 224, 224)
 
 def test_data_size():
     trainset = torch.load("data/processed/train_dev.pt")
