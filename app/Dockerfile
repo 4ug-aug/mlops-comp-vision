@@ -6,6 +6,11 @@ RUN apt update && \
     apt install --no-install-recommends -y build-essential gcc && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
+# install libgit
+RUN apk add --no-cache \
+    libgit2 \
+    libgit2-dev
+
 # Copy essential files
 COPY requirements.txt requirements.txt
 COPY setup.py setup.py
