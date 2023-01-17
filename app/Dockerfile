@@ -15,11 +15,11 @@ RUN pip install -e .
 RUN apt-get update
 RUN apt-get install ffmpeg libsm6 libxext6 wget -y
 
-ENV LIBGIT_VERSION 1.1.0
+ENV LIBGIT_VERSION 1.5.0
 
 # Downloading and building libgit2
 RUN apt-get install -y cmake \
-    && wget https://github.com/libgit2/libgit2/archive/v${LIBGIT_VERSION}.tar.gz \
+    && wget https://github.com/libgit2/libgit2/archive/refs/tags/v${LIBGIT_VERSION}.tar.gz \
     && tar xzf v${LIBGIT_VERSION}.tar.gz \
     && cd libgit2-${LIBGIT_VERSION} \
     && cmake . \ 
