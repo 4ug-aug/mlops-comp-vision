@@ -42,6 +42,10 @@ lint:
 train:
 	$(PYTHON_INTERPRETER) src/models/train_model.py
 
+train-lightning:
+	$(PYTHON_INTERPRETER) -m pip install -e .
+	$(PYTHON_INTERPRETER) src/models-lightning/train_model.py
+
 ## Get the latest file relative path in the trained_models folder and use it to predict
 predict:
 	$(PYTHON_INTERPRETER) src/models/predict_model.py --model_path $(shell ls -t models/trained_models/* | head -1) --data_path data/processed/test.pt

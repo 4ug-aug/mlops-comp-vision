@@ -90,3 +90,9 @@ __MACOSX/data/
 
 # Mypy cache
 .mypy_cache/
+
+outputs/
+wandb/
+models/
+comp-vis-project/
+reports/
