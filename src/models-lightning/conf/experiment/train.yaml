@@ -1,0 +1,13 @@
+#config.yaml
+hyperparameters:
+  epochs: 1
+  lr: 0.001
+  batch_size: 64
+  dataset: 'data/processed'
+  n_classes: 20
+  weight_decay: 0
+  opt: 'adam' # optimizer
+  momentum: 0.9
+  num_workers: 1
+  max_epochs: 1
+  unit_testing: False
