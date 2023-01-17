@@ -16,7 +16,8 @@ COPY data/ data/
 
 # Install dependencies
 WORKDIR /
+RUN pip install -e .
 RUN pip install -r requirements.txt --no-cache-dir
 
 # Entrypoint
-ENTRYPOINT ["python", "-u", "src/models/train_model.py"]
+ENTRYPOINT ["python", "-u", "src/models-lightning/train_model.py"]
