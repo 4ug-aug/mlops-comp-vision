@@ -1,7 +1,7 @@
 import torch 
-from omegaconf import DictConfig, OmegaConf
+from omegaconf import OmegaConf
 import yaml
-from src.models.model import MyAwesomeModel
+from src.models_lightning.model import MyAwesomeModel
 from src.models.train_model import main
 
 def test_train():

@@ -1,19 +1,21 @@
-from src.models.model import MyAwesomeModel
-from src.data.load_data import load_data
+from src.models_lightning.model import MyAwesomeModel
 import torch
 import pytest
 
-@pytest.mark.parametrize("batch_size", [16,32,64,128])
+@pytest.mark.parametrize("batch_size", [16,32,48,64])
 def test_model_batches(batch_size):
-    model = MyAwesomeModel(classes=20)
-    trainset, _ , _= load_data()
+    # expected number of classes
+    n_classes = 20
+    model = MyAwesomeModel(classes=n_classes)
+    trainset = torch.load("data/processed/train_dev.pt")
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size)
     imgs, _ = next(iter(trainloader))
-    assert model(imgs).shape == torch.Size([batch_size,20])
+    assert model(imgs).shape == torch.Size([batch_size,n_classes])
 
 def test_model_single():
-    model = MyAwesomeModel(classes=20)
-    trainset, _, _ = load_data()
+    n_classes = 20
+    model = MyAwesomeModel(classes=n_classes)
+    trainset = torch.load("data/processed/train_dev.pt")
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=64)
     imgs, _ = next(iter(trainloader))
     img = imgs[0].view((1,3,224,224))
