@@ -44,7 +44,7 @@ train:
 
 train-lightning:
 	$(PYTHON_INTERPRETER) -m pip install -e .
-	$(PYTHON_INTERPRETER) src/models-lightning/train_model.py
+	$(PYTHON_INTERPRETER) src/models_lightning/train_model.py
 
 ## Get the latest file relative path in the trained_models folder and use it to predict
 predict:

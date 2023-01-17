@@ -21,4 +21,4 @@ RUN pip install -e .
 RUN pip install -r requirements.txt --no-cache-dir
 
 # Entrypoint
-ENTRYPOINT ["python", "-u", "src/models-lightning/train_model.py"]
+ENTRYPOINT ["python", "-u", "src/models_lightning/train_model.py"]
