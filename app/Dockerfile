@@ -7,9 +7,8 @@ RUN apt update && \
     apt clean && rm -rf /var/lib/apt/lists/*
 
 # install libgit
-RUN apt-get add --no-cache \
-    libgit2 \
-    libgit2-dev
+RUN apt-get add --no-cache libgit2
+RUN apt-get add --no-cache libgit2-dev
 
 # Copy essential files
 COPY requirements.txt requirements.txt
