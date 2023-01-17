@@ -1,13 +1,14 @@
 #config.yaml
 hyperparameters:
-  epochs: 1
-  lr: 0.001
-  batch_size: 64
-  dataset: 'data/processed'
+  max_epochs: 1
   n_classes: 20
-  weight_decay: 0
-  opt: 'adam' # optimizer
+  lr: 0.001
+  weight_decay: 0.01
+  batch_size: 64
+  optimizer: 'adam' # optimizer
   momentum: 0.9
   num_workers: 1
-  max_epochs: 1
+  pretrained: 0 # False
+  dataset_path: 'data/processed/'
+  wandb_project: 'comp-vis-project'
   unit_testing: False

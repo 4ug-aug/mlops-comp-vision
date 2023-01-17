@@ -30,8 +30,20 @@ def main(cfg):
     # set experiment
     cfg = cfg.experiment
 
-    model = MyAwesomeModel(classes=cfg.hyperparameters.n_classes, num_workers=cfg.hyperparameters.num_workers, pretrained=False)
-    trainer = Trainer(max_epochs=cfg.hyperparameters.max_epochs, logger=WandbLogger(project="comp-vis-project"), log_every_n_steps=10)
+    # define model
+    model = MyAwesomeModel(classes=cfg.hyperparameters.n_classes,
+                           lr = cfg.hyperparameters.lr,
+                           weight_decay = cfg.hyperparameters.weight_decay,
+                           batch_size = cfg.hyperparameters.batch_size,
+                           optimizer = cfg.hyperparameters.optimizer,
+                           dataset_path = cfg.hyperparameters.dataset_path,
+                           num_workers=cfg.hyperparameters.num_workers, 
+                           pretrained=cfg.hyperparameters.pretrained)
+
+    # define trainer
+    trainer = Trainer(max_epochs=cfg.hyperparameters.max_epochs, 
+                      logger=WandbLogger(project=cfg.hyperparameters.wandb_project), 
+                      log_every_n_steps=10)
     trainer.fit(model, train_dataloaders=model.train_dataloader(), val_dataloaders=model.val_dataloader())
     trainer.test(model, dataloaders=model.test_dataloader())
 
