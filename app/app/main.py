@@ -11,7 +11,24 @@ import os
 from transformers import CLIPProcessor, CLIPModel
 from datetime import datetime
 
+# Telemetry monitoring
+from opentelemetry import trace
+from opentelemetry.exporter.otlp.proto.http.trace_exporter import (
+    OTLPSpanExporter,
+)
+from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+
+
 from app.data_drift import make_report
+
+# set up tracing and open telemetry
+provider = TracerProvider()
+processor = BatchSpanProcessor(OTLPSpanExporter())
+provider.add_span_processor(processor)
+trace.set_tracer_provider(provider)
+tracer = trace.get_tracer(__name__)
 
 def add_to_database(
    now: str, features, prediction: int):
@@ -37,6 +54,7 @@ def add_to_database(
 
 def predict_step(image_paths):
    # Load model checkpoint
+   current_span = trace.get_current_span()
    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
    # Get latest model checkpoint from models/trained_models
    latest_model_checkpoint = max([os.path.join("models/trained_models", f) for f in os.listdir("models/trained_models")], key=os.path.getctime)
@@ -53,9 +71,16 @@ def predict_step(image_paths):
       ps = torch.exp(log_ps)
       top_p, top_class = ps.topk(1, dim=1)
 
+   current_span.set_attribute("prediction", top_class.item())
+   current_span.set_attribute("image_path", image_paths[0])
+
    return top_class.item()
 
-app = FastAPI()
+
+########################### API ###########################
+
+app = FastAPI(title = "MLOps Butterfly Classifier", description = "A simple MLOps butterfly classifier", version = "0.1")
+FastAPIInstrumentor.instrument_app(app)
 
 @app.get('/')
 async def upload_form_file():

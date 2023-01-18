@@ -21,4 +21,4 @@ COPY ./app /app
 COPY models/ /app/models/
 WORKDIR /app
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
+RUN OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4318/" OTEL_SERVICE_NAME="butterfly-classification-api" python -m uvicorn app.main:app --reload
