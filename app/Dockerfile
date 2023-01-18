@@ -24,4 +24,4 @@ WORKDIR /app
 ARG OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4318/"
 ARG OTEL_SERVICE_NAME="butterfly-classification-api"
 
-ENTRYPOINT ["python", "-m", "uvicorn", "app.main:app", "--reload"]
+ENTRYPOINT ["python", "-m", "uvicorn", "app.main:app", "--reload", "--host", "0.0.0.0", "--port", "8000]
