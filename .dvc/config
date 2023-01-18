@@ -1,4 +1,4 @@
 [core]
     remote = remote_storage
 ['remote "remote_storage"']
-    url = gs://comp-vision-bkt
+    url = gs://comp-vision-bkt/
