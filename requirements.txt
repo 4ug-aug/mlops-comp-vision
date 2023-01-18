@@ -93,3 +93,29 @@ uvicorn>=0.15.0,<0.16.0
 python-multipart
 transformers
 evidently
+opentelemetry-api
+opentelemetry-distro
+    # via predictor (pyproject.toml)
+opentelemetry-exporter-otlp-proto-http
+    # via predictor (pyproject.toml)
+opentelemetry-instrumentation
+    # via
+    #   opentelemetry-distro
+    #   opentelemetry-instrumentation-asgi
+    #   opentelemetry-instrumentation-fastapi
+opentelemetry-instrumentation-asgi
+    # via opentelemetry-instrumentation-fastapi
+opentelemetry-instrumentation-fastapi
+    # via predictor (pyproject.toml)
+opentelemetry-proto
+    # via opentelemetry-exporter-otlp-proto-http
+opentelemetry-sdk
+    # via
+    #   opentelemetry-distro
+    #   opentelemetry-exporter-otlp-proto-http
+opentelemetry-semantic-conventions
+    # via
+    #   opentelemetry-instrumentation-asgi
+    #   opentelemetry-instrumentation-fastapi
+    #   opentelemetry-sdk
+opentelemetry-util-http
