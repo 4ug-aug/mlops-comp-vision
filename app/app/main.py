@@ -112,14 +112,14 @@ async def create_upload_file(file: UploadFile = File(...), h: Optional[int] = 22
 @app.get("/data_monitoring")
 def iris_monitoring(): 
    # Make report
-   result = make_report("app/reference_database.csv", "app/prediction_database.csv")
-   if result is None:
+   path = make_report("app/reference_database.csv", "app/prediction_database.csv")
+   if path is None:
       return HTMLResponse(content="""
          <h1> No data to monitor </h1>
          <p> <a href="/"> Click here to upload an image </a> </p>
          """)
-   # Return report
-   return FileResponse("report.html")
+   # Return report html file
+   return FileResponse(path)
 
 
 

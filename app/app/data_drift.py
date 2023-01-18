@@ -35,4 +35,6 @@ def make_report(reference_data=None, current_data=None):
 
     data_test = TestSuite(tests=[TestNumberOfMissingValues(), TestNumberOfMissingValues()])
     data_test.run(reference_data=reference_data, current_data=current_data)
-    return Report(data_test)
+    path = 'app/data_drift_report.html'
+    data_test.save_html(path)
+    return path
