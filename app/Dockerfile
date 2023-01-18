@@ -21,5 +21,5 @@ COPY ./app /app
 COPY models/ /app/models/
 WORKDIR /app
 
-# RUN OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4318/" OTEL_SERVICE_NAME="butterfly-classification-api" python -m uvicorn app.main:app --reload
-ENTRYPOINT ["OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4318/", "OTEL_SERVICE_NAME="butterfly-classification-api", "python", "-m", "uvicorn", "app.main:app", "--reload"]
+RUN OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4318/" OTEL_SERVICE_NAME="butterfly-classification-api" python -m uvicorn app.main:app --reload
+# ENTRYPOINT ["OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4318/", "OTEL_SERVICE_NAME="butterfly-classification-api", "python", "-m", "uvicorn", "app.main:app", "--reload"]
