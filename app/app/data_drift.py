@@ -10,7 +10,7 @@ def make_report(reference_data=None, current_data=None):
         print("No reference data provided")
         # Look for reference database in app/reference_database.csv
         try:
-            reference_data = pd.read_csv('app/reference_database.csv')
+            reference_data = pd.read_csv('reference_database.csv')
         except:
             print("No reference data found")
         return None
@@ -18,7 +18,7 @@ def make_report(reference_data=None, current_data=None):
         print("No current data provided")
         # Look for current database in app/prediction_database.csv
         try:
-            current_data = pd.read_csv('app/prediction_database.csv')
+            current_data = pd.read_csv('prediction_database.csv')
         except:
             print("No current data found")
             return None
@@ -35,6 +35,6 @@ def make_report(reference_data=None, current_data=None):
 
     data_test = TestSuite(tests=[TestNumberOfMissingValues(), TestNumberOfMissingValues()])
     data_test.run(reference_data=reference_data, current_data=current_data)
-    path = 'app/data_drift_report.html'
+    path = 'data_drift_report.html'
     data_test.save_html(path)
     return path

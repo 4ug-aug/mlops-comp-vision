@@ -11,11 +11,11 @@ import os
 from transformers import CLIPProcessor, CLIPModel
 from datetime import datetime
 
-from app.app.data_drift import make_report
+from app.data_drift import make_report
 
 def add_to_database(
    now: str, features, prediction: int):
-   with open('app/prediction_database.csv', 'a+') as file:
+   with open('prediction_database.csv', 'a+') as file:
       # Convert features to list
       features = features.tolist()[0]
       entry = f"{now},"
@@ -23,7 +23,7 @@ def add_to_database(
          entry += str(feature) + ", "
       entry += str(prediction) + "\n"
 
-      if os.stat('app/prediction_database.csv').st_size == 0:
+      if os.stat('prediction_database.csv').st_size == 0:
          # Write header
          header = "timestamp,"
          for i in range(1, len(features)):
@@ -112,7 +112,7 @@ async def create_upload_file(file: UploadFile = File(...), h: Optional[int] = 22
 @app.get("/data_monitoring")
 def iris_monitoring(): 
    # Make report
-   path = make_report("app/reference_database.csv", "app/prediction_database.csv")
+   path = make_report("reference_database.csv", "prediction_database.csv")
    if path is None:
       return HTMLResponse(content="""
          <h1> No data to monitor </h1>
