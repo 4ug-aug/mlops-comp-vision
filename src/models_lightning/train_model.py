@@ -44,8 +44,10 @@ def main(cfg):
                            pretrained=cfg.hyperparameters.pretrained)
 
     # define trainer
+    logger = WandbLogger(project=cfg.hyperparameters.wandb_project)
+    logger.log_hyperparams(cfg.hyperparameters)
     trainer = Trainer(max_epochs=cfg.hyperparameters.max_epochs, 
-                      logger=WandbLogger(project=cfg.hyperparameters.wandb_project), 
+                      logger=logger, 
                       log_every_n_steps=10)
     trainer.fit(model, train_dataloaders=model.train_dataloader(), val_dataloaders=model.val_dataloader())
     trainer.test(model, dataloaders=model.test_dataloader())
