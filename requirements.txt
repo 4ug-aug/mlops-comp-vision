@@ -119,3 +119,4 @@ opentelemetry-semantic-conventions
     #   opentelemetry-instrumentation-fastapi
     #   opentelemetry-sdk
 opentelemetry-util-http
+wandb
