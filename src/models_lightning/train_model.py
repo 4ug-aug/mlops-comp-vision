@@ -7,9 +7,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import hydra
 from hydra.utils import get_original_cwd
+import torch
 
 from pytorch_lightning import Trainer
 from pytorch_lightning.loggers import WandbLogger
+
+from utils import count_files
 
 @hydra.main(config_path='conf/',config_name="default_config.yaml")
 def main(cfg):
@@ -46,6 +49,14 @@ def main(cfg):
                       log_every_n_steps=10)
     trainer.fit(model, train_dataloaders=model.train_dataloader(), val_dataloaders=model.val_dataloader())
     trainer.test(model, dataloaders=model.test_dataloader())
+    
+    new_path = count_files(f"{get_original_cwd()}/models/trained_models")
+    new_path = f"{get_original_cwd()}/models/trained_models/model_checkpoint_{new_path}.pth"
+
+    print("Saving model as model_checkpoint.pth")
+    print("Path: {}".format(new_path))
+    
+    torch.save(model.cnn.state_dict(), new_path)
 
 
     
