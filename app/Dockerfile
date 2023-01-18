@@ -10,6 +10,8 @@ RUN apt update && \
 COPY requirements.txt requirements.txt
 COPY setup.py setup.py
 COPY src/ src/
+COPY data/processed/train.pt app/reference_database.csv
+
 RUN pip install -e .
 
 RUN apt-get update
