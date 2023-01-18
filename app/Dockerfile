@@ -13,20 +13,7 @@ COPY src/ src/
 RUN pip install -e .
 
 RUN apt-get update
-RUN apt-get install ffmpeg libsm6 libxext6 wget -y
-
-ENV LIBGIT_VERSION 1.5.0
-
-# Downloading and building libgit2
-RUN apt-get install -y cmake \
-    && wget https://github.com/libgit2/libgit2/archive/refs/tags/v${LIBGIT_VERSION}.tar.gz \
-    && tar xzf v${LIBGIT_VERSION}.tar.gz \
-    && cd libgit2-${LIBGIT_VERSION} \
-    && cmake . \ 
-    && make \
-    && make install \
-    && pip install pygit2 \
-    && ldconfig
+RUN apt-get install ffmpeg libsm6 libxext6 -y
 
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 COPY ./app /app
