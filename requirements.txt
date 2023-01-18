@@ -85,6 +85,7 @@ urllib3
 wcwidth
 zipp
 opencv-python
+pytorch-lightning
 
 # App Requirements
 fastapi>=0.68.0,<0.69.0
