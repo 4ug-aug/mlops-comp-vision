@@ -56,7 +56,7 @@ def main(cfg):
     print("Saving model as model_checkpoint.pth")
     print("Path: {}".format(new_path))
     
-    torch.save(model.cnn.state_dict(), new_path)
+    torch.save(model.cnn, new_path)
 
 
     
