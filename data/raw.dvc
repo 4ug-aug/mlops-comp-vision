@@ -2,4 +2,4 @@ outs:
 - md5: 5c4f67aaaf4d77d13658c8a40229003a.dir
   size: 70714691
   nfiles: 2798
-  path: raw
+  path: raw 
