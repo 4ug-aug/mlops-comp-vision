@@ -1,6 +1,6 @@
 #config.yaml
 hyperparameters:
-  max_epochs: 1
+  max_epochs: 10
   n_classes: 20
   lr: 0.001
   weight_decay: 0.01

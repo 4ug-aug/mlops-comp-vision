@@ -53,9 +53,9 @@ def main(cfg):
     trainer.test(model, dataloaders=model.test_dataloader())
     
     new_path = count_files(f"{get_original_cwd()}/models/trained_models")
-    new_path = f"{get_original_cwd()}/models/trained_models/model_checkpoint_{new_path}.pth"
+    new_path = f"{get_original_cwd()}/models/trained_models/model_checkpoint_{new_path}.pt"
 
-    print("Saving model as model_checkpoint.pth")
+    print("Saving model as model_checkpoint.pt")
     print("Path: {}".format(new_path))
     
     torch.save(model.cnn, new_path)

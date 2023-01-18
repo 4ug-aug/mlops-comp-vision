@@ -124,10 +124,14 @@ async def create_upload_file(file: UploadFile = File(...), h: Optional[int] = 22
 
    FileResponse(img_path)
 
+   # convert index to butterfly name
+   with open('names.txt') as f:
+       names = [name.strip() for name in f.readlines()]
+
    # return html listing all the predictions
    return HTMLResponse(content=f"""
          <h1> Predictions </h1>
-         <p> The image was classified as: {preds} </p>
+         <p> The image was classified as: {names[preds]} </p>
          <p> <a href="/data_monitoring"> Click here to see data monitoring </a> </p>
          <p> <a href="/"> Click here to upload another image </a> </p>
          """)
