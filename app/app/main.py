@@ -1,12 +1,30 @@
 from fastapi import FastAPI
-from fastapi import UploadFile, File
+from fastapi import UploadFile, File, BackgroundTasks
 from typing import Optional
 import cv2
 from fastapi.responses import HTMLResponse
 from fastapi.responses import FileResponse
 import torch
-from PIL import Image
+from PIL import Image, ImageStat
 import os
+from transformers import CLIPProcessor, CLIPModel
+import datetime
+
+from app.app.data_drift import make_report
+
+def add_to_database(
+   now: str, features, prediction: int):
+   with open('prediction_database.csv', 'a+') as file:
+      # if file is empty, write header
+      if os.stat('prediction_database.csv').st_size == 0:
+         file.write("time, sepal_length, sepal_width, petal_length, petal_width, prediction\n")
+      else:
+         entry = ""
+         for feature in features:
+            entry += str(feature) + ", "
+         entry += str(prediction) + "\n"
+         file.write(entry)
+   return None
 
 def predict_step(image_paths):
    # Load model checkpoint
@@ -39,7 +57,7 @@ async def upload_form_file():
 
 @app.post("/uploadfile/")
 # Example post url = localhost:8000/uploadfile/?filename=hello.txt
-async def create_upload_file(file: UploadFile = File(...), h: Optional[int] = 224, w: Optional[int] = 224):
+async def create_upload_file(file: UploadFile = File(...), h: Optional[int] = 224, w: Optional[int] = 224, background_tasks: BackgroundTasks = None):
    contents = await file.read()
    # Save file locally
    with open(file.filename, "wb") as f:
@@ -50,8 +68,18 @@ async def create_upload_file(file: UploadFile = File(...), h: Optional[int] = 22
    res = cv2.resize(img, (h, w))
    cv2.imwrite(file.filename, res)
 
+   # Create metadata for image
+   now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+   model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
+   processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
+
+   inputs = processor(text=None, images=file.filename, return_tensors="pt", padding=True)
+   img_features = model.get_image_features(inputs['pixel_values'])
+
    # Predict
    preds = predict_step([file.filename])
+   background_tasks.add_task(add_to_database, now, img_features, preds[0])
 
    FileResponse(file.filename)
 
@@ -66,6 +94,14 @@ async def create_upload_file(file: UploadFile = File(...), h: Optional[int] = 22
          </script>
          """)
 
+
+# Monitoring endpoint
+@app.get("/data_monitoring")
+def iris_monitoring(): 
+   # Make report
+   make_report()
+   # Return report
+   return FileResponse("report.html")
 
 
 
