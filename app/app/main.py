@@ -64,6 +64,7 @@ async def upload_form_file():
       <form method="post" action="/uploadfile/" enctype="multipart/form-data">
          <input name="file" type="file">
          <input type="submit">
+         <p> <a href="/data_monitoring"> Click here to see data monitoring </a> </p>
       </form>""")
 
 @app.post("/uploadfile/")
@@ -102,6 +103,8 @@ async def create_upload_file(file: UploadFile = File(...), h: Optional[int] = 22
    return HTMLResponse(content=f"""
          <h1> Predictions </h1>
          <p> The image was classified as: {preds} </p>
+         <p> <a href="/data_monitoring"> Click here to see data monitoring </a> </p>
+         <p> <a href="/"> Click here to upload another image </a> </p>
          """)
 
 
