@@ -25,8 +25,7 @@ RUN apt-get install ffmpeg libsm6 libxext6 -y
 
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
-CMD exec uvicorn app.main:app --port $PORT --host 0.0.0.0 --workers 1
+ARG OTEL_EXPORTER_OTLP_ENDPOINT="http://0.0.0.0:4318/"
+ARG OTEL_SERVICE_NAME="butterfly-classification-api"
 
-
-
-
+CMD ["uvicorn", "app.main:app", "--reload", "--host", "0.0.0.0", "--port", "80:80"]
