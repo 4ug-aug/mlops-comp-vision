@@ -325,7 +325,7 @@ Debugging in this project mostly revolved around resolving issues related to all
 
 When trying to implement DVC we set up a google cloud bucket, this is a service that allows for storage of data in the cloud. The data can then be fetched from the bucket if a user have access to it.
 
-we also used .....
+Another cloud service we used for this project was the google cloud run. This service allows for running/hosting docker containers in the cloud. We used this to deploy our API application to the cloud.
 
 ### Question 18
 
@@ -340,7 +340,7 @@ we also used .....
 >
 > Answer:
 
---- question 18 fill here ---
+For this project we did not prioritize training out model on the GCP, as we focused on setting up many of the other pipelines. If we were to train our model on GCP we would create a pytorch gpu instance using one of googles preset images, then clone our git repo and run the make train command. We could then extract the trained model file that is saved when the training is done.
 
 ### Question 19
 
@@ -385,6 +385,7 @@ we also used .....
 
 The deployment of our model was done locally. We did this by building a fastapi application that allows users to upload images which the model predicts and returns the classification. In addition the API also stores the uploaded data and use this new data to perform data monitoring and create reports that check for data quality and data drifting. To invocation of the model is done trough the simple frontend of the webpage, which is found at the root of the local host.
 
+In addition we also hosted our application in google cloud run, such that we can access it online. To acces this use: ....
 
 
 
@@ -402,6 +403,10 @@ The deployment of our model was done locally. We did this by building a fastapi 
 > Answer:
 
 For our deployed model we implemented local monitoring that stores newly uploaded images and predictions in a csv file. In addition to this we use a python framework: evidently, that checks if our data and predictions are drifting/changing from the training distributions. We have also implemented signoz to track our application and store various metric regarding the usage of our deployed model.
+
+For our google cloud deployment in cloud run, google provide monitoring of the application. 
+
+With the monitoring we are able to see how people interact with our model and if the model have any problems/challenges when inffering on new data.
 
 ### Question 24
 
