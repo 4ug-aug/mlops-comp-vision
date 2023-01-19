@@ -173,7 +173,7 @@ In our group we tried to use branches and PRs at first, but ran into various iss
 >
 > Answer:
 
-For our project we imple
+For our project we tried to implement DVC and store our data in a google cloud bucket. However, we ran into many issues and ended up not being able to resolve them, thus we choose to not implement DVC. DVC is not that crucial for this project as we are only working with at single version of the dataset. DVC (if it worked) could have saved us some time transfering the dataset between the group. In addition DVC could have be useful if we chose to augment the images with some noise and thereby create a new dataset. DVC would allow us to easily store this new dataset as a version 2, which would safe us from doing the augmentation at runtime. With DVC we would also be able to easily swap between the dataset versions. 
 
 ### Question 11
 
@@ -262,7 +262,16 @@ This project utilizes the framwork hydra to ensure reproduceability of the train
 >
 > Answer:
 
---- question 14 fill here ---
+For our project we have used wandb to track and log our experiments. Wandb is well integrated in pytorch lightning, which is the framework we used using for our project. Wandb automatically genereates graphs and tracks the training and performance of the model.
+
+![graphs][figures/wandb_graphs.png]
+
+As seen in the above image wandb automatically creates graphs that keeps track of the training, testing and validation processes. The plots shows how the loss and accuracy decrease as a function of epochs for both training and validation. These visuals helps us keep track of the training process and see if the model is acutally training and how the current experiment setting performs. In addition we also track the experiment settings in wandb in the table tab seen in the below image
+
+![table][figures/wandb_table.png]
+
+In the table all the hyperparameters for each experiment is stored, making it easy to create a new config file to replicate a given experiment setting. In addition the table also contains the performance metrics of the model from the last epoch of training. This allows for a quick overview of what experiments have resulted in good performance. Lastly, the table also includes meta data related to the training of the model, this includes if the training completed or failed and the runtime of the training. This meta data also helps in the choosing of model architechture as two models can have similar performance but vastly different training times.
+
 
 ### Question 15
 
@@ -276,6 +285,13 @@ This project utilizes the framwork hydra to ensure reproduceability of the train
 > *training docker image: `docker run trainer:latest lr=1e-3 batch_size=64`. Link to docker file: <weblink>*
 >
 > Answer:
+For our project we decided to dockerize our FastAPI application, that utilizes our trained image classifier. This application has a minimalistic UI design, but takes an image as input and returns the classification on a new page. Furthermore, the prediction is added to a prediciton database which is used for data monitoring - also run and accesible through the API. Lastly, our API application is monitored by signoz, which provides us with telemetric data for our application. The Docker image is run with the following command:
+
+```
+docker run -e WANDB_API_KEY=<wandb_api_key> -p 80:80 <image_id>
+```
+
+Dockerfile: ***https://github.com/4ug-aug/mlops-comp-vision/blob/master/app/Dockerfile***
 
 --- question 15 fill here ---
 
