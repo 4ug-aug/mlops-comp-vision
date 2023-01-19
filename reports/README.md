@@ -141,7 +141,9 @@ For our project we implemented a total of 6 unit tests: 3 relating to data, 2 re
 >
 > Answer:
 
---- question 8 fill here ---
+The total code coverage of code is 71%, which includes all our source code. We are not that far from 100% coverage of our code and even if we were then there can always be unexpected behaviors given we have not tested every possible scenario of input data. In addition the test scripts produced in this project, was mostly to indicate that we are able to write unit tests in order to check if our code is running correctly. 
+
+Our lowest coverage is in src/models/utils.py with 16% coverage. One could argue the relevance of some of the tests. We checked coverage for some files that were empty and therefore returned 100% coverage. That is also why the metric is not really indicative for how well the tests are run, but only how much of the code is "covered". Therefore, focus should be on writing good tests and not many tests - Quality of Quantity.
 
 ### Question 9
 
@@ -349,7 +351,7 @@ For this project we did not prioritize training out model on the GCP, as we focu
 >
 > Answer:
 
---- question 19 fill here ---
+![Cloud bucket](figures/bucket.png)
 
 ### Question 20
 
@@ -358,7 +360,7 @@ For this project we did not prioritize training out model on the GCP, as we focu
 >
 > Answer:
 
---- question 20 fill here ---
+![Docker images](figures/container.png)
 
 ### Question 21
 
@@ -367,7 +369,8 @@ For this project we did not prioritize training out model on the GCP, as we focu
 >
 > Answer:
 
---- question 21 fill here ---
+![build](figures/build.png)
+This is a screenshot from some of our exercises as we did not get to implement the automatic building of the dockerimages for this project.
 
 ### Question 22
 
@@ -420,7 +423,7 @@ With the monitoring we are able to see how people interact with our model and if
 >
 > Answer:
 
-One of our group members spent all of his credits over night for unknown reasons (they dissapeared without logging of what they where used on), another group member
+One of our group members spent all of his credits over night for unknown reasons (they dissapeared without logging of what they where used on), the other group memebers have used credits on google cloud bucket and google cloud run. The cost have been minimal.
 
 ## Overall discussion of project
 
@@ -456,9 +459,10 @@ The starting point of the diagram is our local setup, here we train, cofigure an
 > *The biggest challenges in the project was using ... tool to do ... . The reason for this was ...*
 >
 > Answer:
+
 Overall the entire project and course have run smoothly and we ended up with a nice mlops setup for our image classification model. However, we have a few challenges troughout the project. The first big challenge was to get DVC to work, every time we tried to add our data files to google cloud bucket it just kept loading for hours and never finished. We where not able to resolve the issue and hence we dropped trying to implement DVC. The fact that we could not implement DVC lead to some subproblems of transfering the dataset to each other and doing the data processing, this was a bit tedious but worked out.
 
-Another big challenge for us was working with docker, it was rather frustrating to build docker images as they took long time to build and takes up a lot of disk space. This made them hard to debug, since we had to wait a long time for each docker image to build before we could test it. It was especially frustrating when everything worked locally, but the docker image failed.
+Another big challenge for us was working with docker, it was rather frustrating to build docker images as they took long time to build and takes up a lot of disk space. This made them hard to debug, since we had to wait a long time for each docker image to build before we could test it. It was especially frustrating when everything worked locally, but the docker image failed. It was also complicated intregrating the API in our dockerimages, this resulted in many errors with setting up the right port to acces the localhost.
 
 
 
@@ -476,5 +480,10 @@ Another big challenge for us was working with docker, it was rather frustrating 
 > *All members contributed to code by...*
 >
 > Answer:
+Student s204126 was in charge of setting up pytorch lightning and Weights and Biases integration. Furthermore, he contributed to making the dataset alongside student s204144. Moreover, contributed to setting up google cloud. Lastly, he set up hydra for the project hyperparameter configuration.
+
+Student s204144 was in charge of setting up github workflows, pytest and coverage. Furthermore, he contributed to writing the report and creating the dataset alongside student s204126. Lastly, helped create and train the model.
+
+Student s204139 was in charge of setting up the FastAPI application, docker images and dockerhub and Signoz and Data Drifting monitoring. Furthermore, helped setup Cloud Run to run the FastAPI application.
 
 --- question 27 fill here ---
