@@ -95,5 +95,4 @@ outputs/
 wandb/
 models/
 comp-vis-project/
-reports/
 /test.txt
