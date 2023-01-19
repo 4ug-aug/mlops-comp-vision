@@ -1,7 +1,7 @@
 alabaster==0.7.12
 appnope==0.1.3
 asttokens==2.2.1
-awscli
+# awscli
 Babel==2.11.0
 backcall==0.2.0
 botocore==1.12.191
