@@ -3,9 +3,9 @@ Project in MLOPS
 
 
 1. **Overall project goal:** This project is about setting up a proper MLOps pipeline to train, test, deploy and monitor deep learning models that performs image classification.
-2. **Framework:** As we are going to perform image classification the Pytorch image models (timm) framwork is well suited for our task. The timm framwork provides a lot of utilities in regards to image classification such a pretrained models and training pipelines.
-3. **Intended use of framework:** In many domains of image classification the tasks share some high level common features, this allows for the utilization of models trained on other image domains. The timm framwork provides a lot of pretrained models, and our intend is to try and improve on some of these.
-4. **Data:** The scope of this project is to perform image classification on the CIFAR10 dataset. This dataset consist of 32x32 colored images with 10 different classes. There are a total of 50000 training images and 10000 test images and the classes are equally distributed. We only plan to work with a subset of the data since it makes everything easier to work with, since the overall scope is not the performance of the model.
+2. **Framework:** As we are going to perform image classification the Pytorch image models (timm) framwork is well suited for our task. The timm framwork provides a lot of utilities in regards to image classification such as pretrained models and training pipelines. In addtion we utilize the pytorch lightning framwork to easen the training process of our model
+3. **Intended use of framework:** In many domains of image classification the tasks share some high level common features, this allows for the utilization of models trained on other image domains. The timm framwork provides a lot of pretrained models, and our intend is to try and use some of these.
+4. **Data:** The scope of this project is to perform image classification on a dataset of moths. This dataset consist of 224x224 colored images with 100 different classes. There are a total of 12500 training images and 500 test and validation images and the classes are equally distributed. We only plan to work with a subset of the data since it makes everything easier to work with, since the overall scope is not the performance of the model.
 5. **Deep learning models:** We plan to use deep convolutional neural networks as they are most commonly used for image classification.
 
 
