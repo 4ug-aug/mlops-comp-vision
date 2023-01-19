@@ -70,7 +70,7 @@ Group 15
 >
 > Answer:
 
---- question 3 fill here ---
+In this project we made use of two different framworks to build and train our deep learning models. The first framwork is the pytorch immage models (timm), we used this framwork to find a deep convolutional neural network archetechture
 
 ## Coding environment
 
@@ -308,7 +308,7 @@ Dockerfile: ***https://github.com/4ug-aug/mlops-comp-vision/blob/master/app/Dock
 >
 > Answer:
 
---- question 16 fill here ---
+Debugging in this project mostly revolved around resolving issues related to all the new framworks and tools we have been introduced to in this courve. This required a lot of googleing and error message decoding. However, the debugging of the code was mostly done by using the integrated debugger in vscode and by doing the good old print statements (which probably was suboptimal). We did not choose to run profiling of our code, as we used framworks for both our model archetecture and training loop, these frameworks are assumes to be already optimzed. However, profiling could have identified if data proccessing could have been optimized.
 
 ## Working in the cloud
 
@@ -325,7 +325,9 @@ Dockerfile: ***https://github.com/4ug-aug/mlops-comp-vision/blob/master/app/Dock
 >
 > Answer:
 
---- question 17 fill here ---
+When trying to implement DVC we set up a google cloud bucket, this is a service that allows for storage of data in the cloud. The data can then be fetched from the bucket if a user have access to it.
+
+we also used .....
 
 ### Question 18
 
@@ -383,7 +385,10 @@ Dockerfile: ***https://github.com/4ug-aug/mlops-comp-vision/blob/master/app/Dock
 >
 > Answer:
 
---- question 22 fill here ---
+The deployment of our model was done locally. We did this by building a fastapi application that allows users to upload images which the model predicts and returns the classification. In addition the API also stores the uploaded data and use this new data to perform data monitoring and create reports that check for data quality and data drifting. To invocation of the model is done trough the simple frontend of the webpage, which is found at the root of the local host.
+
+
+
 
 ### Question 23
 
@@ -398,7 +403,7 @@ Dockerfile: ***https://github.com/4ug-aug/mlops-comp-vision/blob/master/app/Dock
 >
 > Answer:
 
---- question 23 fill here ---
+For our deployed model we implemented local monitoring that stores newly uploaded images and predictions in a csv file. In addition to this we use a python framework: evidently, that checks if our data and predictions are drifting/changing from the training distributions. We have also implemented signoz to track our application and store various metric regarding the usage of our deployed model.
 
 ### Question 24
 
@@ -412,7 +417,7 @@ Dockerfile: ***https://github.com/4ug-aug/mlops-comp-vision/blob/master/app/Dock
 >
 > Answer:
 
---- question 24 fill here ---
+One of our group members spent all of his credits over night for unknown reasons (they dissapeared without logging of what they where used on), another group member
 
 ## Overall discussion of project
 
@@ -446,8 +451,11 @@ Dockerfile: ***https://github.com/4ug-aug/mlops-comp-vision/blob/master/app/Dock
 > *The biggest challenges in the project was using ... tool to do ... . The reason for this was ...*
 >
 > Answer:
+Overall the entire project and course have run smoothly and we ended up with a nice mlops setup for our image classification model. However, we have a few challenges troughout the project. The first big challenge was to get DVC to work, every time we tried to add our data files to google cloud bucket it just kept loading for hours and never finished. We where not able to resolve the issue and hence we dropped trying to implement DVC. The fact that we could not implement DVC lead to some subproblems of transfering the dataset to each other and doing the data processing, this was a bit tedious but worked out.
 
---- question 26 fill here ---
+Another big challenge for us was working with docker, it was rather frustrating to build docker images as they took long time to build and takes up a lot of disk space. This made them hard to debug, since we had to wait a long time for each docker image to build before we could test it. It was especially frustrating when everything worked locally, but the docker image failed.
+
+
 
 ### Question 27
 
