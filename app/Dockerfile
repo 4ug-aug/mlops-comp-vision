@@ -21,7 +21,7 @@ COPY ./app /app
 COPY models/ /app/models/
 WORKDIR /app
 
-ARG OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4318/"
+ARG OTEL_EXPORTER_OTLP_ENDPOINT="http://0.0.0.0:4318/"
 ARG OTEL_SERVICE_NAME="butterfly-classification-api"
 
-CMD ["uvicorn", "app.main:app", "--reload", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "app.main:app", "--reload", "--host", "0.0.0.0", "--port", "80:80"]

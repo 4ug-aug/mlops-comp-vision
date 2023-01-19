@@ -120,3 +120,4 @@ opentelemetry-semantic-conventions
     #   opentelemetry-sdk
 opentelemetry-util-http
 wandb
+aiofiles
