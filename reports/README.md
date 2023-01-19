@@ -69,8 +69,7 @@ Group 15
 > *package to do ... and ... in our project*.
 >
 > Answer:
-
-In this project we made use of two different framworks to build and train our deep learning models. The first framwork is the pytorch immage models (timm), we used this framwork to find a deep convolutional neural network archetechture
+In this project we made use of two different framworks to build and train our deep learning models. The first framwork is the pytorch immage models (timm), we used this framwork to find a deep convolutional neural network architecture which we could use for our model. We choose the resnet18 which has approx 11.2 million parameters, and it also had the the same input feature dimension requirement as to that of the images in our dataset. To make the training process easier we chose to implement the pytorch lightning framwork. This framework make training very easier by implementing a trainer object, which can be customized with various callbacks function. Additionally pytorch lightning is also integrated with wandb, which make the logging of the training process very simply and easy.
 
 ## Coding environment
 
@@ -89,7 +88,7 @@ In this project we made use of two different framworks to build and train our de
 >
 > Answer:
 
-For out project we used both conda and standard python virtual environments to manage dependencides. In order to
+For out project we used both conda and standard python virtual environments to manage dependencides. In order to generate the dependencies we used the following command: pip freeze > requirements.txt. This creates a requirements.txt file that contains a list of alle the packages that are installed in the current environment. In addition we added "-e ." to the requirements file, this is used to install all environment variables needed to make the cookie cutter project template function. To get a complete copy of the environment one has to create a new virtual environment, clone the repo and run: pip install -r requirements.txt. This should install all the required dependencies to execute the project. In addition the user must ensure they have docker, make, gcloud and git installed
 
 ### Question 5
 
@@ -103,7 +102,6 @@ For out project we used both conda and standard python virtual environments to m
 > *because we did not use any ... in our project. We have added an ... folder that contains ... for running our*
 > *experiments.*
 > Answer:
-
 From the cokiecutter template we have altered and made changes to the src, data and models directories. We have filled these with code and data relating to our project. The src folder also includes a config directory to track our experiments. The standard report folder has been changed to contain the report format required for this course. In addition we have added the following folders: app, tests and wandb. The tests folder relates to continious integration and contains unit testing of our data processing, model architechture and training process. The app directory contains our deployed model utilizing the Fastapi framework. Lastly wandb is used to log our experiments and get some neat visualization of our models training progress and performance lvl.
 
 ### Question 6
@@ -115,7 +113,7 @@ From the cokiecutter template we have altered and made changes to the src, data 
 >
 > Answer:
 
---- question 6 fill here ---
+The rules for code qulity and format for this project follows the pep8 python style, to ensure this we utilize the python package called black. This package automatically change all python files to follow this style. In addition we use the isort package to sort all of the import statements in alphabetical order. These concepts and rules are very important for codebases with many contributors, as everything is much more efficient to read when all the developers follows the same schemes and rules. Overall makes the code easier to read and change.
 
 ## Version control
 
@@ -207,8 +205,7 @@ For this project we have done continuous integration on unittesting linting and 
 > *We used a simple argparser, that worked in the following way: python my_script.py --lr 1e-3 --batch_size 25*
 >
 > Answer:
-
-For our project we configured experiments using hydra. we utilized a double config structure: a default config specifing what experiment to use and second a config file with the experiment hyperparameters. This allowed us to easily change and review experiments. To run a experiment we simply run: 
+For our project we configured experiments using hydra. we utilized a double config structure: a default config specifing what experiment to use and second a config file with the experiment hyperparameters. To run a experiment we simply run: 
 ```
 make train
 ```
@@ -225,7 +222,7 @@ hyperparameters:
   momentum: 0.9
   unit_testing: False
 ```
-Then in the default config file the experiment name is changed to that of the newly created experiment.
+Then in the default config file the experiment name is changed
 ```
 defaults:
     - experiment: train
@@ -262,13 +259,13 @@ This project utilizes the framwork hydra to ensure reproduceability of the train
 >
 > Answer:
 
-For our project we have used wandb to track and log our experiments. Wandb is well integrated in pytorch lightning, which is the framework we used using for our project. Wandb automatically genereates graphs and tracks the training and performance of the model.
+For our project we have used wandb to track and log our experiments. Wandb is well integrated in pytorch lightning, which is the framework we used using for our project. Wandb automatically genereates graphs and tracks the training and performance of the model. 
 
-![graphs][figures/wandb_graphs.png]
+![graphs](figures/wandb_graphs.png)
 
 As seen in the above image wandb automatically creates graphs that keeps track of the training, testing and validation processes. The plots shows how the loss and accuracy decrease as a function of epochs for both training and validation. These visuals helps us keep track of the training process and see if the model is acutally training and how the current experiment setting performs. In addition we also track the experiment settings in wandb in the table tab seen in the below image
 
-![table][figures/wandb_table.png]
+![table](figures/wandb_table.png)
 
 In the table all the hyperparameters for each experiment is stored, making it easy to create a new config file to replicate a given experiment setting. In addition the table also contains the performance metrics of the model from the last epoch of training. This allows for a quick overview of what experiments have resulted in good performance. Lastly, the table also includes meta data related to the training of the model, this includes if the training completed or failed and the runtime of the training. This meta data also helps in the choosing of model architechture as two models can have similar performance but vastly different training times.
 
@@ -285,6 +282,7 @@ In the table all the hyperparameters for each experiment is stored, making it ea
 > *training docker image: `docker run trainer:latest lr=1e-3 batch_size=64`. Link to docker file: <weblink>*
 >
 > Answer:
+
 For our project we decided to dockerize our FastAPI application, that utilizes our trained image classifier. This application has a minimalistic UI design, but takes an image as input and returns the classification on a new page. Furthermore, the prediction is added to a prediciton database which is used for data monitoring - also run and accesible through the API. Lastly, our API application is monitored by signoz, which provides us with telemetric data for our application. The Docker image is run with the following command:
 
 ```
@@ -293,7 +291,7 @@ docker run -e WANDB_API_KEY=<wandb_api_key> -p 80:80 <image_id>
 
 Dockerfile: ***https://github.com/4ug-aug/mlops-comp-vision/blob/master/app/Dockerfile***
 
---- question 15 fill here ---
+Additioanlly we created a dockerfile to train our model.
 
 ### Question 16
 
@@ -308,7 +306,7 @@ Dockerfile: ***https://github.com/4ug-aug/mlops-comp-vision/blob/master/app/Dock
 >
 > Answer:
 
-Debugging in this project mostly revolved around resolving issues related to all the new framworks and tools we have been introduced to in this courve. This required a lot of googleing and error message decoding. However, the debugging of the code was mostly done by using the integrated debugger in vscode and by doing the good old print statements (which probably was suboptimal). We did not choose to run profiling of our code, as we used framworks for both our model archetecture and training loop, these frameworks are assumes to be already optimzed. However, profiling could have identified if data proccessing could have been optimized.
+Debugging in this project mostly revolved around resolving issues related to all the new framworks and tools we have been introduced to in this courve. This required a lot of googleing and error message decoding. However, the debugging of the code was mostly done by using the integrated debugger in vscode and by doing the good old print statements (which probably was suboptimal). We did not choose to run profiling of our code, as we used framworks for both our model architecture and training loop, these frameworks are assumes to be already optimzed. However, profiling could have identified if data proccessing could have been optimized.
 
 ## Working in the cloud
 
