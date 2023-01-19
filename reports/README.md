@@ -441,7 +441,9 @@ One of our group members spent all of his credits over night for unknown reasons
 >
 > Answer:
 
---- question 25 fill here ---
+The starting point of the diagram is our local setup, here we train, cofigure and log our machine learning models. This is shown in the diagram by a back and forth arrows between the local development and the dev. When a satisfied experiment is run, the developer commits and push the configuration and models checkpoint to github, which is shown by the diagram from the connection between Dev and github. The diagram shows that Github is connected to itself, this is due to Github on receiving a push from a dev triggers all of the integrated workflows of unittesting, linting and dockerimage building. If all the tests passes the code is working properly and two dockerimages are created and pushed to dockerhub. One of the dockerimages contains the deployed model in an API. This API can also be run locally shown by the dotted line from dev to the FastAPI. Here the model performance and data is monitored . The API itself is also monitered sending the localhost telemetric data. The dockerimage of the API can also be deployed to google cloud run to be hosted in the cloud, this makes it available to all that have the api url from google cloud.
+
+![pipeline images](figures/pipeline.png)
 
 ### Question 26
 
