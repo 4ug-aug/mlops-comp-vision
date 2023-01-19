@@ -480,7 +480,7 @@ Another big challenge for us was working with docker, it was rather frustrating 
 > *All members contributed to code by...*
 >
 > Answer:
-Student s204126 was in charge of setting up pytorch lightning and Weights and Biases integration. Furthermore, he contributed to making the dataset alongside student s204144. Moreover, contributed to setting up google cloud. Lastly, he set up hydra for the project hyperparameter configuration.
+Student s204126 was in charge of setting up Pytorch Lightning and Weights and Biases integration. Furthermore, he contributed to making the dataset alongside student s204144. Moreover, contributed to setting up google cloud. Additionally he resolved isort and flake8 errors in the codebase. Lastly, he set up hydra for the project hyperparameter configuration. 
 
 Student s204144 was in charge of setting up github workflows, pytest and coverage. Furthermore, he contributed to writing the report and creating the dataset alongside student s204126. Lastly, helped create and train the model.
 

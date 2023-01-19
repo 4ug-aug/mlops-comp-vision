@@ -1,8 +1,9 @@
 import pandas as pd
-from evidently.report import Report
-from evidently.metric_preset import DataDriftPreset
+# from evidently.report import Report
+# from evidently.metric_preset import DataDriftPreset
 from evidently.test_suite import TestSuite
-from evidently.tests import *
+from evidently.tests import TestNumberOfMissingValues
+
 
 def make_report(reference_data=None, current_data=None):
 
@@ -10,16 +11,16 @@ def make_report(reference_data=None, current_data=None):
         print("No reference data provided")
         # Look for reference database in app/reference_database.csv
         try:
-            reference_data = pd.read_csv('reference_database.csv')
-        except:
+            reference_data = pd.read_csv("reference_database.csv")
+        except Exception:
             print("No reference data found")
         return None
     if current_data is None:
         print("No current data provided")
         # Look for current database in app/prediction_database.csv
         try:
-            current_data = pd.read_csv('prediction_database.csv')
-        except:
+            current_data = pd.read_csv("prediction_database.csv")
+        except Exception:
             print("No current data found")
             return None
 
@@ -29,12 +30,13 @@ def make_report(reference_data=None, current_data=None):
     current_data = pd.read_csv(current_data)
 
     # Make column names of current data match reference data
-    current_data = current_data.drop(columns=['timestamp'])
-    reference_data = reference_data.drop(columns=['timestamp'])
+    current_data = current_data.drop(columns=["timestamp"])
+    reference_data = reference_data.drop(columns=["timestamp"])
 
-
-    data_test = TestSuite(tests=[TestNumberOfMissingValues(), TestNumberOfMissingValues()])
+    data_test = TestSuite(
+        tests=[TestNumberOfMissingValues(), TestNumberOfMissingValues()]
+    )
     data_test.run(reference_data=reference_data, current_data=current_data)
-    path = 'data_drift_report.html'
+    path = "data_drift_report.html"
     data_test.save_html(path)
     return path

@@ -1,26 +1,23 @@
-import argparse
-import sys
+# import argparse
 import logging
-import os
+import sys
 
-import torch
 import click
-
-import matplotlib.pyplot as plt
-import numpy as np
-from torch import nn, optim
-
+import torch
 from tqdm import tqdm
+from utils import get_latest_model
 
-from utils import *
-
+# import os
+# import matplotlib.pyplot as plt
+# import numpy as np
+# from torch import nn
 latest_model = get_latest_model()
+
 
 @click.command()
 @click.option("--model_path", default=latest_model, help='path to model', prompt=True)
 @click.option("--data_path", default="data/processed/test.pt", help='path to data', prompt=True)
 @click.option("--dev", default=True, help='use dev set for testing')
-
 def predict(model_path, data_path, dev):
     """ Predicts the model on the test set and prints the accuracy.
 
@@ -56,7 +53,7 @@ def predict(model_path, data_path, dev):
 
     model = torch.load(model_path)
 
-    criterion = nn.CrossEntropyLoss()
+    # criterion = nn.CrossEntropyLoss()
 
     with torch.no_grad():
         accuracy = 0
@@ -68,19 +65,18 @@ def predict(model_path, data_path, dev):
             top_p, top_class = ps.topk(1, dim=1)
             equals = top_class == labels.view(*top_class.shape)
             accuracy += torch.mean(equals.type(torch.FloatTensor))
-        
+
     print("Accuracy: ", accuracy.item()/len(testloader)*100)
 
 
 if __name__ == "__main__":
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     logging.basicConfig(level=logging.INFO, format=log_fmt)
-    
 
     # Print help message if no arguments are given
     if len(sys.argv) == 1:
         print("Usage: python predicts_model.py [OPTIONS] COMMAND [ARGS]...")
         print("No arguments given.")
         print("Try 'python predict_model.py --help' for help.")
-    
+
     predict()

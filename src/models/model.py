@@ -1,25 +1,25 @@
-import torch
-from torchvision import datasets, transforms
-from torch import nn, optim
-import torch.nn.functional as F
+# import torch
+# from torchvision import datasets, transforms
+# import torch.nn.functional as F
 import timm
+from torch import nn
 
 
 class MyAwesomeModel(nn.Module):
-    def __init__(self, model_name="resnet18",classes=10, pretrained=True):
+    def __init__(self, model_name="resnet18", classes=10, pretrained=True):
         super().__init__()
 
         self.model_name = model_name
         self.classes = classes
         self.pretrained = pretrained
 
-        self.cnn = timm.create_model(self.model_name,pretrained=self.pretrained,num_classes = self.classes)
+        self.cnn = timm.create_model(self.model_name,
+                                     pretrained=self.pretrained,
+                                     num_classes=self.classes)
 
-    def forward(self,x):
+    def forward(self, x):
         x = self.cnn(x)
         return x
-        
-
 
     def model(self):
         # https://huggingface.co/microsoft/resnet-50
@@ -28,7 +28,3 @@ class MyAwesomeModel(nn.Module):
         timm_model = timm.create_model(model_name, pretrained=False, num_classes=self.classes)
 
         return timm_model
-    
-
-        
-

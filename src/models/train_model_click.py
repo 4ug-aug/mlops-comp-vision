@@ -1,39 +1,37 @@
-import argparse
-import sys
+# import argparse
 import logging
-import os
-
-import torch
-import click
-from torchvision import transforms
-
-# Timm computer vision hugging face library
-import timm
-from timm.optim.optim_factory import create_optimizer
-from timm.data import create_dataset, create_loader
+import sys
+# from timm.data import create_dataset, create_loader
 from types import SimpleNamespace
 
-from model import MyAwesomeModel
-
+import click
 import matplotlib.pyplot as plt
-import numpy as np
-from torch import nn, optim
+import torch
+from model import MyAwesomeModel
+# Timm computer vision hugging face library
+# import timm
+from timm.optim.optim_factory import create_optimizer
+# import numpy as np
+from torch import nn
 from tqdm import tqdm
-
 from utils import count_files
+
+# import os
+
+# from torchvision import transforms
+
 
 @click.group()
 def cli():
     pass
 
+
 @click.command()
 @click.option("--lr", default=1e-3, help='learning rate to use for training')
 @click.option("--epochs", default=5, help='number of epochs to train for')
 @click.option("--dev", default=True, help='use dev set for training')
-
 # Make help message for the train command
 @click.help_option("--help", "-h")
-
 def train(lr, epochs, dev):
     """ Train a model and save loss plot and model checkpoint
 
@@ -75,7 +73,7 @@ def train(lr, epochs, dev):
     args = SimpleNamespace()
     args.weight_decay = 0
     args.lr = lr
-    args.opt = 'adam' #'lookahead_adam' to use `lookahead`
+    args.opt = 'adam'  # 'lookahead_adam' to use `lookahead`
     args.momentum = 0.9
 
     optimizer = create_optimizer(args, model)
@@ -86,13 +84,13 @@ def train(lr, epochs, dev):
         print(f"Epoch {e+1}/{epochs}")
         running_loss = 0
         for images, labels in tqdm(trainloader):
-            
+
             preds = model(images)
             loss = criterion(preds, labels)
             loss.backward()
             optimizer.step()
             optimizer.zero_grad()
-            
+
             running_loss += loss.item()
         else:
             training_loss.append(running_loss/trainloader.batch_size)

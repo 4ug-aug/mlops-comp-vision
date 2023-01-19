@@ -1,8 +1,8 @@
 import torch
-from tqdm import tqdm
 from PIL import Image
 from torchvision import transforms
-import numpy as np
+from tqdm import tqdm
+
 
 def PIL_to_tensor(input_filepath, imgs_PIL):
     transform = transforms.Compose([transforms.PILToTensor()])
