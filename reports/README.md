@@ -390,7 +390,7 @@ This is a screenshot from some of our exercises as we did not get to implement t
 
 The deployment of our model was done locally. We did this by building a fastapi application that allows users to upload images which the model predicts and returns the classification. In addition the API also stores the uploaded data and use this new data to perform data monitoring and create reports that check for data quality and data drifting. To invocation of the model is done trough the simple frontend of the webpage, which is found at the root of the local host.
 
-In addition we also hosted our application in google cloud run, such that we can access it online. To acceess the application google cloud run provides an url which leads to the simply frontend.
+In addition we also hosted our application in google cloud run, such that we can access it online on the following link https://api-demo-lhjnjgcnya-ew.a.run.app. To acceess the application google cloud run provides an url which leads to the simply frontend.
 
 
 

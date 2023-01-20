@@ -33,8 +33,8 @@ be installed with <code>pip install click markdown</code>.</p>
 <p><strong>Enter the study number for each member in the group</strong></p>
 <p>Answer:</p>
 </blockquote>
-<p>August Brogaard Tollerup: s204139, 
-Marcus Roberto Nielsen: s204126,
+<p>August Brogaard Tollerup: s204139 
+Marcus Roberto Nielsen: s204126
 Mads Vibe Ringsted: s204144</p>
 <h3>Question 3</h3>
 <blockquote>
@@ -125,7 +125,7 @@ corporate and increase the quality of your code.</p>
 <em>pipeline</em></p>
 <p>Answer:</p>
 </blockquote>
-<p>For our project we tried to implement DVC and then store our data in a google cloud bucket. However, we ran into many issues and ended up not being able to resolve them, thus we choose to not implement DVC. DVC is not that crucial for this project as we are only working with at single version of the dataset. DVC (if it worked) could have saved us some time transfering the dataset between the group. In addition DVC could have be useful if we chose to augment the images with some noise and thereby create a new dataset. DVC would allow us to easily store this new dataset as a version 2, which would safe us from doing the augmentation at runtime. With DVC we would also be able to easily swap between the dataset versions. </p>
+<p>For our project we tried to implement DVC and store our data in a google cloud bucket. However, we ran into many issues and ended up not being able to resolve them, thus we choose to not implement DVC. DVC is not that crucial for this project as we are only working with at single version of the dataset. DVC (if it worked) could have saved us some time transfering the dataset between the group. In addition DVC could have be useful if we chose to augment the images with some noise and thereby create a new dataset. DVC would allow us to easily store this new dataset as a version 2, which would safe us from doing the augmentation at runtime. With DVC we would also be able to easily swap between the dataset versions. </p>
 <h3>Question 11</h3>
 <blockquote>
 <p><strong>Discuss you continues integration setup. What kind of CI are you running (unittesting, linting, etc.)? Do you test</strong>
@@ -154,8 +154,7 @@ especially the reproducibility of your experiments.</p>
 For our project we configured experiments using hydra. we utilized a double config structure: a default config specifing what experiment to use and second a config file with the experiment hyperparameters. To run a experiment we simply run: 
 <code>make train</code>
 To configure an experiment we create an experiment yaml file with the following params:
-```
-hyperparameters:
+<code>hyperparameters:
   epochs: 1
   lr: 0.001
   batch_size: 64
@@ -164,11 +163,11 @@ hyperparameters:
   weight_decay: 0
   opt: 'adam' # optimizer
   momentum: 0.9
-  unit_testing: False</p>
-</blockquote>
-<p>Then in the default config file the experiment name is changed
+  unit_testing: False</code>
+Then in the default config file the experiment name is changed
 <code>defaults:
     - experiment: train</code></p>
+</blockquote>
 <h3>Question 13</h3>
 <blockquote>
 <p><strong>Reproducibility of experiments are important. Related to the last question, how did you secure that no information</strong>
@@ -281,7 +280,7 @@ This is a screenshot from some of our exercises as we did not get to implement t
 <p>Answer:</p>
 </blockquote>
 <p>The deployment of our model was done locally. We did this by building a fastapi application that allows users to upload images which the model predicts and returns the classification. In addition the API also stores the uploaded data and use this new data to perform data monitoring and create reports that check for data quality and data drifting. To invocation of the model is done trough the simple frontend of the webpage, which is found at the root of the local host.</p>
-<p>In addition we also hosted our application in google cloud run, such that we can access it online at this link https://api-demo-lhjnjgcnya-ew.a.run.app. To acceess the application google cloud run provides an url which leads to the frontend.</p>
+<p>In addition we also hosted our application in google cloud run, such that we can access it online on the following link https://api-demo-lhjnjgcnya-ew.a.run.app. To acceess the application google cloud run provides an url which leads to the simply frontend.</p>
 <h3>Question 23</h3>
 <blockquote>
 <p><strong>Did you manage to implement monitoring of your deployed model? If yes, explain how it works. If not, explain how</strong>
@@ -294,7 +293,7 @@ This is a screenshot from some of our exercises as we did not get to implement t
 </blockquote>
 <p>For our deployed model we implemented local monitoring that stores newly uploaded images and predictions in a csv file. In addition to this we use a python framework: evidently, that checks if our data and predictions are drifting/changing from the training distributions. We have also implemented signoz to track our application and store various metric regarding the usage of our deployed model.</p>
 <p>For our google cloud deployment in cloud run, google provide monitoring of the application. </p>
-<p>With the monitoring we are able to see how people interact with our model and if the model have any problems/challenges when inferring on new data.</p>
+<p>With the monitoring we are able to see how people interact with our model and if the model have any problems/challenges when inffering on new data.</p>
 <h3>Question 24</h3>
 <blockquote>
 <p><strong>How many credits did you end up using during the project and what service was most expensive?</strong></p>
@@ -304,7 +303,7 @@ This is a screenshot from some of our exercises as we did not get to implement t
 <em>costing the most was ... due to ...</em></p>
 <p>Answer:</p>
 </blockquote>
-<p>One of our group members spent all of his credits over night for unknown reasons (they disappeared without logging of what they where used on), the other group memebers have used credits on google cloud bucket and google cloud run. The cost have been minimal.</p>
+<p>One of our group members spent all of his credits over night for unknown reasons (they dissapeared without logging of what they where used on), the other group memebers have used credits on google cloud bucket and google cloud run. The cost have been minimal.</p>
 <h2>Overall discussion of project</h2>
 <blockquote>
 <p>In the following section we would like you to think about the general structure of your project.</p>
