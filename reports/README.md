@@ -57,7 +57,9 @@ Group 15
 >
 > Answer:
 
-*s204139, s204126, s204144*
+August Brogaard Tollerup: s204139, 
+Marcus Roberto Nielsen: s204126,
+Mads Vibe Ringsted: s204144
 
 ### Question 3
 > **What framework did you choose to work with and did it help you complete the project?**
@@ -69,7 +71,7 @@ Group 15
 > *package to do ... and ... in our project*.
 >
 > Answer:
-In this project we made use of two different framworks to build and train our deep learning models. The first framwork is the pytorch immage models (timm), we used this framwork to find a deep convolutional neural network architecture which we could use for our model. We choose the resnet18 which has approx 11.2 million parameters, and it also had the the same input feature dimension requirement as to that of the images in our dataset. To make the training process easier we chose to implement the pytorch lightning framwork. This framework make training very easier by implementing a trainer object, which can be customized with various callbacks function. Additionally pytorch lightning is also integrated with wandb, which make the logging of the training process very simply and easy.
+In this project we made use of two different frameworks to build and train our deep learning models. The first framwork is the pytorch image models (timm) We used this framwork to find a deep convolutional neural network architecture which we could use for our model. We chose the resnet18 which has approx. 11.2 million parameters, and it also had the the same input feature dimension requirement as to that of the images in our dataset. To make the training process easier we chose to implement the pytorch lightning framwork. This framework makes training easier by implementing a trainer object, which can be customized with various callback functions. Additionally pytorch lightning is also integrated with wandb, which makes the logging of the training process very simply and easy.
 
 ## Coding environment
 
@@ -88,7 +90,7 @@ In this project we made use of two different framworks to build and train our de
 >
 > Answer:
 
-For out project we used both conda and standard python virtual environments to manage dependencides. In order to generate the dependencies we used the following command: pip freeze > requirements.txt. This creates a requirements.txt file that contains a list of alle the packages that are installed in the current environment. In addition we added "-e ." to the requirements file, this is used to install all environment variables needed to make the cookie cutter project template function. To get a complete copy of the environment one has to create a new virtual environment, clone the repo and run: pip install -r requirements.txt. This should install all the required dependencies to execute the project. In addition the user must ensure they have docker, make, gcloud and git installed
+For our project we used both conda and standard python virtual environments to manage dependencides. In order to generate the dependencies we used the following command: pip freeze > requirements.txt. This creates a requirements.txt file that contains a list of alle the packages that are installed in the current environment. In addition we added "-e ." to the requirements file, this is used to install all environment variables needed to make the cookie cutter project template function. To get a complete copy of the environment one has to create a new virtual environment, clone the repo and run: pip install -r requirements.txt. This should install all the required dependencies to execute the project. In addition the user must ensure they have docker, make, gcloud and git installed
 
 ### Question 5
 
@@ -102,7 +104,7 @@ For out project we used both conda and standard python virtual environments to m
 > *because we did not use any ... in our project. We have added an ... folder that contains ... for running our*
 > *experiments.*
 > Answer:
-From the cokiecutter template we have altered and made changes to the src, data and models directories. We have filled these with code and data relating to our project. The src folder also includes a config directory to track our experiments. The standard report folder has been changed to contain the report format required for this course. In addition we have added the following folders: app, tests and wandb. The tests folder relates to continious integration and contains unit testing of our data processing, model architechture and training process. The app directory contains our deployed model utilizing the Fastapi framework. Lastly wandb is used to log our experiments and get some neat visualization of our models training progress and performance lvl.
+From the cookiecutter template we have altered and made changes to the src, data and models directories. We have filled these with code and data relating to our project. The src folder also includes a config directory to track our experiments. The standard report folder has been changed to contain the report format required for this course. In addition we have added the following folders: app, tests and wandb. The tests folder relates to continious integration and contains unit testing of our data processing, model architechture and training process. The app directory contains our deployed model utilizing the Fastapi framework. Lastly wandb is used to log our experiments and get some neat visualization of our models training progress and performance level.
 
 ### Question 6
 
@@ -113,7 +115,7 @@ From the cokiecutter template we have altered and made changes to the src, data 
 >
 > Answer:
 
-The rules for code qulity and format for this project follows the pep8 python style, to ensure this we utilize the python package called black. This package automatically change all python files to follow this style. In addition we use the isort package to sort all of the import statements in alphabetical order. These concepts and rules are very important for codebases with many contributors, as everything is much more efficient to read when all the developers follows the same schemes and rules. Overall makes the code easier to read and change.
+The rules for code qulity and format for this project follows the pep8 python style, to ensure this we utilize the python package called black. This package automatically change all python files to follow this style. In addition we use the isort package to sort all of the import statements in alphabetical order. These concepts and rules are very important for codebases with many contributors, as everything is much more efficient to read when all the developers follows the same schemes and rules. Overall it makes the code easier to read and change.
 
 ## Version control
 
@@ -158,7 +160,7 @@ Our lowest coverage is in src/models/utils.py with 16% coverage. One could argue
 >
 > Answer:
 
-In our group we tried to use branches and PRs at first, but ran into various issues with merging conflicts. We ran into this issue because all of us did changes to various parts of the project simultaneously, resulting in us making changes to the same parts of the code base when changing and testing code. Later we just decided to push to main branch, as it was easy to just discard the local changes that resulted in merge conflicts and commit the non conflicting changes. However, this is not best practice as its not stable to make changes directly to the main branch, as the should be a tested and working version of the product. In addition branches let people develop new features and make changes without ever running into problems with other peoples changes. Pull requests can then be setup to check if the merging branch is stable enough to get updated to the main branch (passing some tests). This ensures that workflow is optimized for developers and that the main product avoid suddenly crashing and not working as expected.
+In our group we tried to use branches and PRs at first, but ran into various issues with merging conflicts. We ran into this issue because all of us did changes to various parts of the project simultaneously, resulting in us making changes to the same parts of the code base when changing and testing code. Later we just decided to push to main branch, as it was easy to just discard the local changes that resulted in merge conflicts and commit the non conflicting changes. However, this is not best practice as it is not stable to make changes directly to the main branch, as the should be a tested and working version of the product. In addition branches let people develop new features and make changes without ever running into problems with other peoples changes. Pull requests can then be setup to check if the merging branch is stable enough to get updated to the main branch (passing some tests). This ensures that workflow is optimized for developers and that the main product avoid suddenly crashing and not working as expected.
 
 ### Question 10
 
@@ -173,7 +175,7 @@ In our group we tried to use branches and PRs at first, but ran into various iss
 >
 > Answer:
 
-For our project we tried to implement DVC and store our data in a google cloud bucket. However, we ran into many issues and ended up not being able to resolve them, thus we choose to not implement DVC. DVC is not that crucial for this project as we are only working with at single version of the dataset. DVC (if it worked) could have saved us some time transfering the dataset between the group. In addition DVC could have be useful if we chose to augment the images with some noise and thereby create a new dataset. DVC would allow us to easily store this new dataset as a version 2, which would safe us from doing the augmentation at runtime. With DVC we would also be able to easily swap between the dataset versions. 
+For our project we tried to implement DVC and then store our data in a google cloud bucket. However, we ran into many issues and ended up not being able to resolve them, thus we choose to not implement DVC. DVC is not that crucial for this project as we are only working with at single version of the dataset. DVC (if it worked) could have saved us some time transfering the dataset between the group. In addition DVC could have be useful if we chose to augment the images with some noise and thereby create a new dataset. DVC would allow us to easily store this new dataset as a version 2, which would safe us from doing the augmentation at runtime. With DVC we would also be able to easily swap between the dataset versions. 
 
 ### Question 11
 
@@ -189,7 +191,7 @@ For our project we tried to implement DVC and store our data in a google cloud b
 >
 > Answer:
 
-For this project we have done continuous integration on unittesting linting and dockerimage creation. We have a total of 5 different workflows running on github actions when pushing to the main branch. The first workflow runs our unittests and check if the changes have effected the properties of the model, data and the training process. Two of the workflows are related to linting and checks if the code is compliant with pep8 using flake8 and if the imports are sorted using isort. The last two workflows are creating docker images and pushing them to docker hub. The first docker image trains our model and save it in the docker container. The other docker file create and runs a fastapi application with a trained model to predict images. All of our continuous integration workflows run on both ubunto and windows operating system, this is to ensure that our application works in general. Futhermore, we also tests on both python 3.9 and 3.10 to check if a newer python version breaks some of the code. To ensure full general viability/useability of our code base we could test even more operating systems and python versions, however since this is simply a test project it was easier to filter through the tests on github when only testing four combinations.
+For this project we have done continuous integration on unittesting, linting and dockerimage creation. We have a total of 4 different workflows running on github actions when pushing to the main branch. The first workflow runs our unittests and check if the changes have effected the properties of the model, data and the training process. Two of the workflows are related to linting and checks if the code is compliant with pep8 using flake8 and if the imports are sorted using isort. The last workflow is creating a docker image and pushing it to docker hub. It creates and runs a fastapi application with a trained model to predict images. All of our continuous integration workflows run on both ubuntu and windows operating system, this is to ensure that our application works in general. Furthermore, we also ran tests on both python 3.9 and 3.10 to check if a newer python version breaks some of the code. To ensure full general viability/useability of our code base we could test even more operating systems and python versions, however since this is simply a test project it was easier to filter through the tests on github when only testing the four combinations.
 
 ## Running code and tracking experiments
 
@@ -223,7 +225,7 @@ hyperparameters:
   opt: 'adam' # optimizer
   momentum: 0.9
   unit_testing: False
-```
+
 Then in the default config file the experiment name is changed
 ```
 defaults:
@@ -388,7 +390,7 @@ This is a screenshot from some of our exercises as we did not get to implement t
 
 The deployment of our model was done locally. We did this by building a fastapi application that allows users to upload images which the model predicts and returns the classification. In addition the API also stores the uploaded data and use this new data to perform data monitoring and create reports that check for data quality and data drifting. To invocation of the model is done trough the simple frontend of the webpage, which is found at the root of the local host.
 
-In addition we also hosted our application in google cloud run, such that we can access it online. To acceess the application google cloud run provides an url which leads to the simply frontend.
+In addition we also hosted our application in google cloud run, such that we can access it online at this link https://api-demo-lhjnjgcnya-ew.a.run.app. To acceess the application google cloud run provides an url which leads to the frontend.
 
 
 
@@ -409,7 +411,7 @@ For our deployed model we implemented local monitoring that stores newly uploade
 
 For our google cloud deployment in cloud run, google provide monitoring of the application. 
 
-With the monitoring we are able to see how people interact with our model and if the model have any problems/challenges when inffering on new data.
+With the monitoring we are able to see how people interact with our model and if the model have any problems/challenges when inferring on new data.
 
 ### Question 24
 
@@ -423,7 +425,7 @@ With the monitoring we are able to see how people interact with our model and if
 >
 > Answer:
 
-One of our group members spent all of his credits over night for unknown reasons (they dissapeared without logging of what they where used on), the other group memebers have used credits on google cloud bucket and google cloud run. The cost have been minimal.
+One of our group members spent all of his credits over night for unknown reasons (they disappeared without logging of what they where used on), the other group memebers have used credits on google cloud bucket and google cloud run. The cost have been minimal.
 
 ## Overall discussion of project
 
